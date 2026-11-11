@@ -17,6 +17,7 @@ pnpm dev
 | `pnpm lint`   | Biome lint + format check            |
 | `pnpm format` | Format with Biome                    |
 | `pnpm test`   | Agent-readiness tests against a running server (`BASE_URL`, default `http://localhost:3000`) |
+| `pnpm indexnow` | Notify Bing and other IndexNow engines of every sitemap URL (run after deploys that change pages) |
 
 ## Where things live
 

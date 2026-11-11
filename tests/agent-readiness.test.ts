@@ -130,3 +130,11 @@ describe("machine-readable files", () => {
     assert.match(await (await get("/robots.txt")).text(), /^Sitemap: /m);
   });
 });
+
+describe("IndexNow", () => {
+  test("serves the key file", async () => {
+    const res = await get("/4481ebd332a98dab1dcdeace3977225d.txt");
+    assert.equal(res.status, 200);
+    assert.equal((await res.text()).trim(), "4481ebd332a98dab1dcdeace3977225d");
+  });
+});
