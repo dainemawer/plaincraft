@@ -43,7 +43,6 @@ Copy is defined once in `src/content/home.ts`. The page, the JSON-LD and `/llms.
 Set these in Vercel (Project → Settings → Environment Variables). See `.env.example`.
 
 - `CALENDAR_URL`: booking link for every "Book a call" button
-- `HERO_VIDEO_URL`: YouTube, Vimeo or video file for the hero
 - `FOUNDER_NAME`, `LINKEDIN_URL`: founder details
 - `SITE_URL`: canonical origin (defaults to `https://plaincraft.co.za`)
 

@@ -26,8 +26,6 @@ export const site = {
   location: "South Africa · Remote nationwide",
   /** Booking link used by every "Book a call" button. Falls back to the on-page CTA. */
   calendarUrl: process.env.CALENDAR_URL || "/#book",
-  /** YouTube, Vimeo or direct .mp4/.webm/.mov URL for the hero explainer. */
-  heroVideoUrl: process.env.HERO_VIDEO_URL ?? "",
   linkedInUrl:
     process.env.LINKEDIN_URL || "https://www.linkedin.com/in/your-profile",
   founder: {

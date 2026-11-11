@@ -25,9 +25,10 @@
   --text-xl--line-height: normal;
   --text-2xl--line-height: normal;
 
-  --text-display: clamp(2.75rem, 6.4vw, 5.6rem);
-  --text-display--line-height: 0.96;
-  --text-display--letter-spacing: -0.045em;
+  /* Full-width hero headline. */
+  --text-display-hero: clamp(2.75rem, 7.6vw, 7.25rem);
+  --text-display-hero--line-height: 0.94;
+  --text-display-hero--letter-spacing: -0.045em;
 
   --text-display-cta: clamp(2.5rem, 6.6vw, 6rem);
   --text-display-cta--line-height: 0.96;
