@@ -1,4 +1,4 @@
-import { LegalPage } from "@/components/site/legal-page";
+import { ProsePage } from "@/components/site/prose-page";
 import { pageMetadata } from "@/lib/metadata";
 import { site } from "@/lib/site";
 
@@ -9,7 +9,7 @@ export const metadata = pageMetadata({ title, description, path: "/terms" });
 
 export default function TermsPage() {
   return (
-    <LegalPage
+    <ProsePage
       path="/terms"
       title={title}
       description={description}
@@ -68,6 +68,6 @@ export default function TermsPage() {
         Questions about these terms? Email{" "}
         <a href={`mailto:${site.email}`}>{site.email}</a>.
       </p>
-    </LegalPage>
+    </ProsePage>
   );
 }

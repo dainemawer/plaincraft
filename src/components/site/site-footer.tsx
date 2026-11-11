@@ -61,7 +61,17 @@ export async function SiteFooter() {
         <p>
           © {year} {site.name}. All rights reserved.
         </p>
-        <ul className="flex gap-5">
+        <ul className="flex flex-wrap gap-5">
+          <li>
+            <Link href="/about" className="underline">
+              About
+            </Link>
+          </li>
+          <li>
+            <Link href="/contact" className="underline">
+              Contact
+            </Link>
+          </li>
           <li>
             <Link href="/privacy" className="underline">
               Privacy &amp; POPIA

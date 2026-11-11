@@ -24,8 +24,22 @@ function organization(): JsonLdNode {
     image: absoluteUrl("/opengraph-image"),
     email: site.email,
     description: site.description,
+    keywords: site.keywords.join(", "),
     areaServed: southAfrica,
-    address: { "@type": "PostalAddress", addressCountry: "ZA" },
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Cape Town",
+      addressRegion: "Western Cape",
+      addressCountry: "ZA",
+    },
+    contactPoint: {
+      "@type": "ContactPoint",
+      contactType: "sales",
+      email: site.email,
+      url: absoluteUrl("/contact"),
+      areaServed: "ZA",
+      availableLanguage: "English",
+    },
     knowsAbout: [
       "Artificial intelligence",
       "AI strategy",
@@ -120,14 +134,17 @@ export function homeStructuredData() {
   };
 }
 
-export function legalPageStructuredData(page: {
+export type ProsePageType = "WebPage" | "AboutPage" | "ContactPage";
+
+export function prosePageStructuredData(page: {
+  type: ProsePageType;
   path: `/${string}`;
   name: string;
   description: string;
 }) {
   return {
     "@context": "https://schema.org",
-    "@type": "WebPage",
+    "@type": page.type,
     "@id": absoluteUrl(`${page.path}#webpage`),
     url: absoluteUrl(page.path),
     name: page.name,
@@ -135,5 +152,6 @@ export function legalPageStructuredData(page: {
     inLanguage: site.locale,
     isPartOf: { "@id": ids.site },
     publisher: { "@id": ids.org },
+    about: { "@id": ids.org },
   };
 }

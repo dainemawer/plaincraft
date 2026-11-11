@@ -23,6 +23,8 @@ export const site = {
     "Find where AI saves time and money, then build it properly. Fixed fees, no lock-in, one senior consultant.",
   tagline: "Independent AI consultancy for South African SMEs.",
   location: "South Africa · Remote nationwide",
+  /** Core service terms, used in structured data. Each also appears on the page. */
+  keywords: ["AI consultancy", "AI readiness audit", "Fractional Head of AI"],
   /** Booking link used by every "Book a call" button. */
   calendarUrl: "https://cal.com/plaincraft/30min",
   linkedInUrl: "https://www.linkedin.com/in/dainemawer/",

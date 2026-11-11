@@ -1,4 +1,4 @@
-import { LegalPage } from "@/components/site/legal-page";
+import { ProsePage } from "@/components/site/prose-page";
 import { pageMetadata } from "@/lib/metadata";
 import { site } from "@/lib/site";
 
@@ -9,7 +9,7 @@ export const metadata = pageMetadata({ title, description, path: "/privacy" });
 
 export default function PrivacyPage() {
   return (
-    <LegalPage
+    <ProsePage
       path="/privacy"
       title={title}
       description={description}
@@ -105,6 +105,6 @@ export default function PrivacyPage() {
         We may update this notice from time to time. The date at the top of the
         page shows when it last changed.
       </p>
-    </LegalPage>
+    </ProsePage>
   );
 }

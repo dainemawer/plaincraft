@@ -81,3 +81,18 @@ ${faqs.map((faq) => `### ${faq.question}\n\n${faq.answer}`).join("\n\n")}
 - Terms of use: ${absoluteUrl("/terms")}
 `;
 }
+
+/** Markdown 404 for agents, pointing them at the machine-readable entry points. */
+export function notFoundMarkdown(path: string) {
+  return `# 404: Page not found
+
+There is no page at \`${path}\` on ${site.name}'s website. It may have moved, or the link may be wrong.
+
+Try one of these instead:
+
+- [Homepage (Markdown)](${absoluteUrl("/index.md")})
+- [llms.txt: what ${site.name} does and when to use it](${absoluteUrl("/llms.txt")})
+- [Sitemap](${absoluteUrl("/sitemap.xml")})
+- [Contact](${absoluteUrl("/contact")})
+`;
+}
