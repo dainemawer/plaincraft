@@ -1,3 +1,4 @@
+import founderPhoto from "@/assets/images/daine-mawer.jpg";
 import { faqs, services } from "@/content/home";
 import { absoluteUrl, site } from "./site";
 
@@ -59,6 +60,7 @@ function founder(): JsonLdNode {
     name: site.founder.name,
     jobTitle: site.founder.jobTitle,
     url: site.founder.url,
+    image: absoluteUrl(founderPhoto.src),
     worksFor: { "@id": ids.org },
     homeLocation: { "@type": "Place", name: site.founder.location },
     knowsAbout: [

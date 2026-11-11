@@ -1,3 +1,4 @@
+import founderPhoto from "@/assets/images/daine-mawer.jpg";
 import { ButtonLink } from "@/components/ui/button-link";
 import { Photo } from "@/components/ui/photo";
 import { founderFacts } from "@/content/home";
@@ -21,7 +22,8 @@ export function About() {
           />
           <div className="relative size-full border border-ink bg-sand">
             <Photo
-              hint="Drop your headshot here: natural light, looking at camera"
+              src={founderPhoto}
+              alt={`Portrait of ${site.founder.name}, founder of ${site.name}, smiling at the camera.`}
               sizes="(min-width: 1100px) 520px, 100vw"
             />
           </div>
