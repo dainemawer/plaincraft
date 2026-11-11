@@ -33,7 +33,7 @@ function organization(): JsonLdNode {
       "POPIA compliance",
       "AI training",
     ],
-    ...(site.founder.name ? { founder: { "@id": ids.founder } } : {}),
+    founder: { "@id": ids.founder },
     hasOfferCatalog: {
       "@type": "OfferCatalog",
       name: "AI consultancy services",
@@ -52,15 +52,22 @@ function organization(): JsonLdNode {
   };
 }
 
-function founder(): JsonLdNode | null {
-  if (!site.founder.name) return null;
+function founder(): JsonLdNode {
   return {
     "@type": "Person",
     "@id": ids.founder,
     name: site.founder.name,
     jobTitle: site.founder.jobTitle,
+    url: site.founder.url,
     worksFor: { "@id": ids.org },
-    sameAs: [site.linkedInUrl],
+    homeLocation: { "@type": "Place", name: site.founder.location },
+    knowsAbout: [
+      "Artificial intelligence",
+      "AI-assisted software engineering",
+      "Web performance",
+      "Product engineering",
+    ],
+    sameAs: [site.linkedInUrl, site.founder.url],
   };
 }
 
@@ -107,13 +114,7 @@ function faqPage(): JsonLdNode {
 export function homeStructuredData() {
   return {
     "@context": "https://schema.org",
-    "@graph": [
-      organization(),
-      founder(),
-      website(),
-      homePage(),
-      faqPage(),
-    ].filter(Boolean),
+    "@graph": [organization(), founder(), website(), homePage(), faqPage()],
   };
 }
 

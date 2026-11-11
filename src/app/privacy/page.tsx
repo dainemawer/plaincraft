@@ -57,11 +57,11 @@ export default function PrivacyPage() {
       <h2>Who we share it with</h2>
       <p>
         We share personal information only with service providers that help us
-        operate, such as our website host, email provider and booking tool, and
-        only as far as they need it. Some of these providers store data outside
-        South Africa. Where that happens, we rely on providers bound by data
-        protection laws or agreements that give a level of protection comparable
-        to POPIA.
+        operate, and only as far as they need it: Vercel (website hosting and
+        analytics), ImprovMX (email forwarding) and Cal.com (call booking). Some
+        of these providers store data outside South Africa. Where that happens,
+        we rely on providers bound by data protection laws or agreements that
+        give a level of protection comparable to POPIA.
       </p>
 
       <h2>Client data</h2>

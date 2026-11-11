@@ -281,9 +281,9 @@ export const commitments = [
 ];
 
 export const founderFacts = [
-  { label: "Background", value: "[e.g. 10 years in operations & systems]" },
+  { label: "Background", value: "17 years in web & product engineering" },
   { label: "Focus", value: "Practical AI adoption for SMEs" },
-  { label: "Based in", value: "South Africa" },
+  { label: "Based in", value: "Cape Town, South Africa" },
 ];
 
 export const shortVersion = [

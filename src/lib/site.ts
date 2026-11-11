@@ -1,7 +1,6 @@
 /**
- * Site-wide configuration. Values that differ per environment, or that are
- * still placeholders, are read from environment variables so they can be
- * filled in on Vercel without a code change.
+ * Site-wide configuration. Only the canonical origin varies by environment;
+ * everything else is content and lives in version control.
  */
 
 const siteUrl = (process.env.SITE_URL ?? "https://plaincraft.co.za").replace(
@@ -24,14 +23,14 @@ export const site = {
     "Find where AI saves time and money, then build it properly. Fixed fees, no lock-in, one senior consultant.",
   tagline: "Independent AI consultancy for South African SMEs.",
   location: "South Africa · Remote nationwide",
-  /** Booking link used by every "Book a call" button. Falls back to the on-page CTA. */
-  calendarUrl: process.env.CALENDAR_URL || "/#book",
-  linkedInUrl:
-    process.env.LINKEDIN_URL || "https://www.linkedin.com/in/your-profile",
+  /** Booking link used by every "Book a call" button. */
+  calendarUrl: "https://cal.com/plaincraft/30min",
+  linkedInUrl: "https://www.linkedin.com/in/dainemawer/",
   founder: {
-    /** Set FOUNDER_NAME to publish the founder in structured data. */
-    name: process.env.FOUNDER_NAME || null,
+    name: "Daine Mawer",
     jobTitle: "Founder & Principal Consultant",
+    url: "https://dainemawer.com",
+    location: "Cape Town, South Africa",
   },
   showFoundingOffer: true,
   theme: {

@@ -32,10 +32,11 @@ export function About() {
             Just me. That's the point.
           </h2>
           <p className="mt-7 text-[19px]/[1.6] text-pretty">
-            I'm <strong>{site.founder.name ?? "[Your name]"}</strong>, founder
-            of {site.name}. [One or two sentences on your background, e.g. years
-            spent in operations, data or tech, and the kinds of problems you
-            solved.]
+            I'm <strong>{site.founder.name}</strong>, founder of {site.name}.
+            I've spent 17 years building websites and digital products, most
+            recently as a Staff Engineer leading web engineering on large client
+            projects. AI is part of how I work every day, so I know where it
+            earns its keep and where it quietly makes a mess.
           </p>
           <p className="mt-[18px] text-[17px]/[1.6] text-graphite text-pretty">
             I started {site.name} because small businesses were being sold AI

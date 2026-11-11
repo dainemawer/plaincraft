@@ -40,11 +40,7 @@ Copy is defined once in `src/content/home.ts`. The page, the JSON-LD and `/llms.
 
 ## Configuration
 
-Set these in Vercel (Project → Settings → Environment Variables). See `.env.example`.
-
-- `CALENDAR_URL`: booking link for every "Book a call" button
-- `FOUNDER_NAME`, `LINKEDIN_URL`: founder details
-- `SITE_URL`: canonical origin (defaults to `https://plaincraft.co.za`)
+Site details (booking link, founder, LinkedIn, email) live in `src/lib/site.ts`. The only environment variable is `SITE_URL`, the canonical origin, which defaults to `https://plaincraft.co.za`. See `.env.example`.
 
 ## Adding photography
 
@@ -54,7 +50,7 @@ Every image slot uses `<Photo hint="…" sizes="…" />`, which shows a placehol
 
 - Semantic landmarks, one `h1` per page, and sections labelled by their headings
 - Metadata API: canonical, hreflang `en-ZA`, Open Graph, Twitter and geo tags
-- JSON-LD graph: `ProfessionalService`, `Service` offers, `WebSite`, `WebPage` and `FAQPage`, plus `Person` once `FOUNDER_NAME` is set
+- JSON-LD graph: `ProfessionalService`, `Service` offers, founder `Person`, `WebSite`, `WebPage` and `FAQPage`
 - `robots.txt` explicitly welcomes AI crawlers, and `/llms.txt` gives language models a summary
 - Fonts are self-hosted with `next/font`, and pages are prerendered static HTML
 
