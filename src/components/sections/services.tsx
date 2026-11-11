@@ -1,4 +1,6 @@
+import Link from "next/link";
 import { serviceStages } from "@/content/home";
+import { serviceDetailById, servicePath } from "@/content/services";
 
 export function Services() {
   return (
@@ -42,28 +44,45 @@ export function Services() {
                     {stage.label}
                   </span>
                 </p>
-                {stage.services.map((service) => (
-                  <article
-                    key={service.id}
-                    id={service.id}
-                    aria-labelledby={`${service.id}-title`}
-                    className={`flex flex-col gap-2.5 border-t pt-6 ${
-                      dark ? "border-paper/20" : "border-ink/15"
-                    }`}
-                  >
-                    <h3
-                      id={`${service.id}-title`}
-                      className="text-2xl font-bold tracking-[-0.025em]"
+                {stage.services.map((service) => {
+                  const detail = serviceDetailById.get(service.id);
+                  return (
+                    <article
+                      key={service.id}
+                      id={service.id}
+                      aria-labelledby={`${service.id}-title`}
+                      className={`flex flex-col gap-2.5 border-t pt-6 ${
+                        dark ? "border-paper/20" : "border-ink/15"
+                      }`}
                     >
-                      {service.name}
-                    </h3>
-                    <p
-                      className={`text-base/[1.55] ${dark ? "text-mist" : "text-graphite"}`}
-                    >
-                      {service.body}
-                    </p>
-                  </article>
-                ))}
+                      <h3
+                        id={`${service.id}-title`}
+                        className="text-2xl font-bold tracking-[-0.025em]"
+                      >
+                        {service.name}
+                      </h3>
+                      <p
+                        className={`text-base/[1.55] ${dark ? "text-mist" : "text-graphite"}`}
+                      >
+                        {service.body}
+                      </p>
+                      {detail ? (
+                        <Link
+                          href={servicePath(detail)}
+                          className={`inline-flex min-h-11 items-center gap-2 self-start text-[15px] font-semibold underline underline-offset-4 ${
+                            dark ? "hover:text-ember" : "hover:text-rust"
+                          }`}
+                        >
+                          Learn more
+                          <span className="sr-only"> about {service.name}</span>
+                          <span aria-hidden="true" className="glyph">
+                            →
+                          </span>
+                        </Link>
+                      ) : null}
+                    </article>
+                  );
+                })}
               </div>
             );
           })}

@@ -1,5 +1,10 @@
 import founderPhoto from "@/assets/images/daine-mawer.jpg";
 import { faqs, services } from "@/content/home";
+import {
+  type ServiceDetail,
+  serviceDetailById,
+  servicePath,
+} from "@/content/services";
 import { absoluteUrl, site } from "./site";
 
 type JsonLdNode = Record<string, unknown>;
@@ -58,7 +63,7 @@ function organization(): JsonLdNode {
           "@type": "Service",
           name: service.schemaName,
           description: service.body,
-          url: absoluteUrl(`/#${service.id}`),
+          url: serviceUrl(service.id),
           provider: { "@id": ids.org },
           areaServed: southAfrica,
         },
@@ -134,24 +139,82 @@ export function homeStructuredData() {
   };
 }
 
-export type ProsePageType = "WebPage" | "AboutPage" | "ContactPage";
+export type ProsePageType =
+  | "WebPage"
+  | "AboutPage"
+  | "ContactPage"
+  | "CollectionPage";
+
+export type Crumb = { name: string; path: `/${string}` };
 
 export function prosePageStructuredData(page: {
   type: ProsePageType;
   path: `/${string}`;
   name: string;
   description: string;
+  trail: Crumb[];
 }) {
+  const breadcrumbId = absoluteUrl(`${page.path}#breadcrumb`);
   return {
     "@context": "https://schema.org",
-    "@type": page.type,
-    "@id": absoluteUrl(`${page.path}#webpage`),
-    url: absoluteUrl(page.path),
-    name: page.name,
-    description: page.description,
-    inLanguage: site.locale,
-    isPartOf: { "@id": ids.site },
-    publisher: { "@id": ids.org },
-    about: { "@id": ids.org },
+    "@graph": [
+      {
+        "@type": page.type,
+        "@id": absoluteUrl(`${page.path}#webpage`),
+        url: absoluteUrl(page.path),
+        name: page.name,
+        description: page.description,
+        inLanguage: site.locale,
+        isPartOf: { "@id": ids.site },
+        publisher: { "@id": ids.org },
+        about: { "@id": ids.org },
+        breadcrumb: { "@id": breadcrumbId },
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": breadcrumbId,
+        itemListElement: page.trail.map((crumb, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          name: crumb.name,
+          item: absoluteUrl(crumb.path),
+        })),
+      },
+    ],
+  };
+}
+
+function serviceUrl(id: string) {
+  const detail = serviceDetailById.get(id);
+  return absoluteUrl(detail ? servicePath(detail) : `/#${id}`);
+}
+
+/** Service and FAQ nodes for an individual service page. */
+export function servicePageStructuredData(detail: ServiceDetail) {
+  const url = absoluteUrl(servicePath(detail));
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Service",
+        "@id": `${url}#service`,
+        name: detail.headline,
+        serviceType: detail.serviceType,
+        description: detail.description,
+        url,
+        provider: { "@id": ids.org },
+        areaServed: southAfrica,
+        mainEntityOfPage: absoluteUrl(`${servicePath(detail)}#webpage`),
+      },
+      {
+        "@type": "FAQPage",
+        "@id": `${url}#faq`,
+        mainEntity: detail.faqs.map((faq) => ({
+          "@type": "Question",
+          name: faq.question,
+          acceptedAnswer: { "@type": "Answer", text: faq.answer },
+        })),
+      },
+    ],
   };
 }

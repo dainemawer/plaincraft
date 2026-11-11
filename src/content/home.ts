@@ -171,10 +171,12 @@ export const serviceStages: ServiceStage[] = [
 export const services = serviceStages.flatMap((stage) => stage.services);
 
 export const footerServiceLinks = [
-  { label: "AI readiness audit", href: "/#ai-readiness-audit" },
-  { label: "Strategy & roadmap", href: "/#ai-strategy-roadmap" },
-  { label: "Automation builds", href: "/#automation-builds" },
-  { label: "Fractional Head of AI", href: "/#fractional-head-of-ai" },
+  { label: "AI readiness audit", href: "/services/ai-readiness-audit" },
+  { label: "Strategy & roadmap", href: "/services/ai-strategy-roadmap" },
+  { label: "Automation builds", href: "/services/ai-automation" },
+  { label: "AI training", href: "/services/ai-training" },
+  { label: "Fractional Head of AI", href: "/services/fractional-head-of-ai" },
+  { label: "All services", href: "/services" },
 ] as const;
 
 export type AuditVerdict = "automate" | "assist" | "fix-first" | "not-for-ai";
@@ -340,7 +342,7 @@ export const faqs = [
   {
     question: "Do you only work with South African businesses?",
     answer:
-      "I'm based in South Africa and work remotely with businesses nationwide. International clients are welcome where time zones allow.",
+      "I'm based in Cape Town and work with businesses across South Africa, including Johannesburg, Pretoria and Durban, remotely or on site. International clients are welcome where time zones allow.",
   },
   {
     question: "Why work with one consultant instead of an agency?",

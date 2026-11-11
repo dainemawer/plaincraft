@@ -15,6 +15,7 @@ export default function ContactPage() {
       path="/contact"
       title={title}
       description={description}
+      cta
     >
       <h2>Book a free call</h2>
       <p>

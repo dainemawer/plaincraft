@@ -24,6 +24,7 @@ pnpm dev
 src/
   app/                 Routes and file-based metadata
     page.tsx           Homepage (composes the sections)
+    services/          Services hub and one page per service ([slug])
     about/, contact/   Trust pages for people and agents
     privacy/, terms/   Legal pages
     llms.txt/route.ts  /llms.txt, generated from homepage content
@@ -35,6 +36,7 @@ src/
     ui/                ButtonLink, SmartLink, Logo, Photo
     seo/               JSON-LD renderer
   content/home.ts      All homepage copy, typed
+  content/services.ts  Service page copy, one entry per service
   lib/site.ts          Site config and environment variables
   lib/structured-data.ts  schema.org graph
   lib/markdown.ts      Markdown homepage and Markdown 404

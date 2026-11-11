@@ -12,6 +12,9 @@ export function Hero() {
     >
       <HeroBackdrop />
       <div className="shell relative pt-[clamp(56px,9vw,136px)] pb-[clamp(56px,8vw,112px)]">
+        <p data-hero="" className="mb-6 text-[15px] font-semibold text-rust">
+          AI consultant for South African small businesses
+        </p>
         <h1
           id="hero-title"
           data-hero=""

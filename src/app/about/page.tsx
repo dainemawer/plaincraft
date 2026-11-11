@@ -15,6 +15,7 @@ export default function AboutPage() {
       path="/about"
       title={title}
       description={description}
+      cta
     >
       <h2>Who runs {site.name}</h2>
       <p>

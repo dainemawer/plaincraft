@@ -6,7 +6,8 @@ import { knownPaths } from "@/lib/routes";
  * Content negotiation for agents that prefer Markdown:
  * - `/` is rewritten to its Markdown edition at /index.md
  * - unknown paths get a Markdown 404 body instead of the HTML error page
- * Every other request passes through untouched.
+ * Browsers asking for an unknown /services/ slug are rewritten to a path
+ * with no route, so they get the static 404 page with a 404 status.
  */
 export function proxy(request: NextRequest) {
   const accept = request.headers.get("accept") ?? "";
@@ -14,7 +15,14 @@ export function proxy(request: NextRequest) {
     accept.includes("text/markdown") && !accept.includes("text/html");
   const { pathname } = request.nextUrl;
 
+  const known = knownPaths.has(pathname);
+
   if (!wantsMarkdown) {
+    // Dynamic segments stream their shell before notFound() can set the
+    // status, so reject unknown service slugs here to return a real 404.
+    if (!known && pathname.startsWith("/services/")) {
+      return NextResponse.rewrite(new URL("/__not-found", request.url));
+    }
     return NextResponse.next();
   }
 
@@ -24,7 +32,7 @@ export function proxy(request: NextRequest) {
     return response;
   }
 
-  if (!knownPaths.has(pathname)) {
+  if (!known) {
     return new NextResponse(notFoundMarkdown(pathname), {
       status: 404,
       headers: {

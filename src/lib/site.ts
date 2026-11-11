@@ -14,11 +14,10 @@ export const site = {
   locale: "en-ZA",
   ogLocale: "en_ZA",
   email: "hello@plaincraft.co.za",
-  title:
-    "Plaincraft · AI Consultancy for South African SMEs | Strategy, Automation & Training",
+  title: "AI Consultant for South African SMEs | Plaincraft",
   shortTitle: "Plaincraft · Practical AI for South African SMEs",
   description:
-    "Plaincraft is an independent AI consultancy for South African SMEs. Fixed-fee AI readiness audits, strategy, automation builds, training and fractional Head of AI, delivered by one senior consultant.",
+    "Plaincraft is an independent AI consultancy for South African SMEs, based in Cape Town. Fixed-fee AI readiness audits, strategy, automation, staff training and a fractional Head of AI.",
   socialDescription:
     "Find where AI saves time and money, then build it properly. Fixed fees, no lock-in, one senior consultant.",
   tagline: "Independent AI consultancy for South African SMEs.",
