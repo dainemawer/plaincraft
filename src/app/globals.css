@@ -1,26 +1,190 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@theme {
+  --color-ink: #121210;
+  --color-coal: #1c1b18;
+  --color-graphite: #3a3934;
+  --color-stone: #9c998f;
+  --color-mist: #c9c6be;
+  --color-sand: #eae7df;
+  --color-paper: #f4f2ed;
+  --color-cream: #fbfaf7;
+  --color-ember: #e8492a;
+  --color-rust: #b5321a;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  /* The design switches between desktop and mobile navigation at 1100px. */
+  --breakpoint-nav: 68.75rem;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  --ease-out-soft: cubic-bezier(0.2, 0.7, 0.1, 1);
+
+  /* The design sets font sizes without line-heights; keep the browser default. */
+  --text-xs--line-height: normal;
+  --text-sm--line-height: normal;
+  --text-base--line-height: normal;
+  --text-lg--line-height: normal;
+  --text-xl--line-height: normal;
+  --text-2xl--line-height: normal;
+
+  --text-display: clamp(2.75rem, 6.4vw, 5.6rem);
+  --text-display--line-height: 0.96;
+  --text-display--letter-spacing: -0.045em;
+
+  --text-display-cta: clamp(2.5rem, 6.6vw, 6rem);
+  --text-display-cta--line-height: 0.96;
+  --text-display-cta--letter-spacing: -0.045em;
+
+  --text-heading: clamp(2.25rem, 4.6vw, 4rem);
+  --text-heading--line-height: 1;
+  --text-heading--letter-spacing: -0.04em;
+
+  --text-heading-sm: clamp(2rem, 3.8vw, 3.25rem);
+  --text-heading-sm--line-height: 1.02;
+  --text-heading-sm--letter-spacing: -0.035em;
+
+  --text-jumbo: clamp(2.25rem, 4vw, 3.25rem);
+  --text-jumbo--line-height: 1;
+  --text-jumbo--letter-spacing: -0.045em;
+
+  --text-lede: clamp(1.06rem, 1.4vw, 1.25rem);
+  --text-lede--line-height: 1.55;
+
+  --animate-marquee: marquee 52s linear infinite;
+
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@theme inline {
+  --font-sans: var(--font-schibsted), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Page gutters and vertical rhythm shared by every section. */
+@utility shell {
+  margin-inline: auto;
+  max-width: 1280px;
+  padding-inline: clamp(20px, 4vw, 48px);
+}
+
+/* Arrow glyphs aren't in Google's Latin subset, so they come from a tiny local subset. */
+@utility glyph {
+  font-family: var(--font-schibsted-arrows), var(--font-sans);
+}
+
+@utility section-y {
+  padding-block: clamp(64px, 9vw, 128px);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  /* The design relies on the browser's default line-height, not preflight's 1.5. */
+  html,
+  body {
+    line-height: normal;
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+  }
+
+  a {
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+  }
+
+  /* Keep in-page anchors clear of the sticky header. */
+  [id] {
+    scroll-margin-top: 5rem;
+  }
+
+  summary {
+    list-style: none;
+    cursor: pointer;
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  ::selection {
+    background-color: var(--color-ember);
+    color: var(--color-ink);
+  }
+}
+
+/*
+ * Motion. Everything is opt-in behind prefers-reduced-motion and works
+ * without JavaScript, except scroll reveals, which are enhanced by
+ * <RevealOnScroll />.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  [data-hero] {
+    animation: rise-in 1000ms var(--ease-out-soft) backwards;
+    animation-delay: calc(100ms + var(--hero-index, 0) * 110ms);
+  }
+
+  [data-reveal="pending"] {
+    opacity: 0;
+  }
+
+  /* Readiness audit sample: bars grow, verdicts pop, a scan line sweeps. */
+  [data-audit]:not([data-reveal="pending"]) {
+    & [data-audit-bar] {
+      transform-origin: left;
+      animation: grow-x 1100ms var(--ease-out-soft) backwards;
+      animation-delay: calc(500ms + var(--row, 0) * 160ms);
+    }
+
+    & [data-audit-verdict] {
+      animation: pop-in 500ms var(--ease-out-soft) backwards;
+      animation-delay: calc(900ms + var(--row, 0) * 160ms);
+    }
+
+    & [data-audit-scan] {
+      animation: scan 4200ms ease-in-out 1400ms infinite backwards;
+    }
+  }
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+}
+
+@keyframes grow-x {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+}
+
+@keyframes scan {
+  from {
+    transform: translateY(-64px);
+  }
+  to {
+    transform: translateY(340px);
+  }
 }
