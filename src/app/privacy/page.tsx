@@ -17,11 +17,14 @@ export default function PrivacyPage() {
     >
       <h2>Who we are</h2>
       <p>
-        {site.name} is an independent AI consultancy based in South Africa. For
-        the purposes of POPIA, {site.name} is the responsible party for personal
-        information collected through this website. You can reach our
-        Information Officer at <a href={`mailto:${site.email}`}>{site.email}</a>
-        .
+        {site.name} is an independent AI consultancy run by {site.founder.name}{" "}
+        and based in {site.founder.location}. For the purposes of POPIA,{" "}
+        {site.name} is the responsible party for personal information collected
+        through this website.
+      </p>
+      <p>
+        Our Information Officer is {site.founder.name}, who can be reached at{" "}
+        <a href={`mailto:${site.email}`}>{site.email}</a>.
       </p>
 
       <h2>What we collect</h2>
