@@ -3,12 +3,14 @@ import { join } from "node:path";
 import { ImageResponse } from "next/og";
 import { logoMark } from "@/lib/logo-mark";
 import { site } from "@/lib/site";
+import { wordmarkParts } from "@/lib/wordmark";
 
 export const alt = `${site.name}: practical AI for South African SMEs`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-const { ink, paper } = site.theme;
+const { ink, paper, ember } = site.theme;
+const wordmark = wordmarkParts();
 
 async function loadFont() {
   "use cache";
@@ -48,8 +50,12 @@ export default async function OpengraphImage() {
             <path key={d} d={d} />
           ))}
         </svg>
-        <div style={{ fontSize: 40, letterSpacing: "-0.03em" }}>
-          {site.name}
+        <div
+          style={{ display: "flex", fontSize: 40, letterSpacing: "-0.03em" }}
+        >
+          <span>{wordmark.before}</span>
+          <span style={{ color: ember }}>{wordmark.accent}</span>
+          <span>{wordmark.after}</span>
         </div>
       </div>
       <div

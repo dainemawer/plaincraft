@@ -1,5 +1,6 @@
 import { logoMark } from "@/lib/logo-mark";
 import { site } from "@/lib/site";
+import { wordmarkParts } from "@/lib/wordmark";
 
 type LogoProps = {
   /** "light" sits on paper backgrounds, "dark" on ink backgrounds. */
@@ -9,6 +10,7 @@ type LogoProps = {
 /** The diamond mark and wordmark. Purely presentational. */
 export function Logo({ tone = "light" }: LogoProps) {
   const isDark = tone === "dark";
+  const { before, accent, after } = wordmarkParts();
 
   return (
     <span
@@ -27,7 +29,12 @@ export function Logo({ tone = "light" }: LogoProps) {
       <span
         className={`font-bold tracking-[-0.03em] ${isDark ? "text-lg" : "text-[19px]"}`}
       >
-        {site.name}
+        <span className="sr-only">{site.name}</span>
+        <span aria-hidden="true">
+          {before}
+          <span className="text-ember">{accent}</span>
+          {after}
+        </span>
       </span>
     </span>
   );
