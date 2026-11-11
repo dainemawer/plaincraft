@@ -57,6 +57,39 @@ describe("service pages", () => {
     }
   });
 
+  test("service pages show a fixed fee but no price figure", async () => {
+    for (const path of servicePaths) {
+      const { html } = await page(path);
+      assert.match(html, /One fixed fee\./, path);
+      const text = html
+        .replace(/<(script|style)[\s\S]*?<\/\1>/g, " ")
+        .replace(/<[^>]+>/g, " ");
+      assert.doesNotMatch(
+        text,
+        /\bR\s?\d[\d\s,]*\d{3}\b/,
+        `${path} has no rand amount`,
+      );
+    }
+  });
+
+  test("FAQ answers in structured data match the visible copy", async () => {
+    for (const path of servicePaths) {
+      const { html } = await page(path);
+      const faq = [
+        ...html.matchAll(
+          /<script type="application\/ld\+json">([\s\S]*?)<\/script>/g,
+        ),
+      ]
+        .map((match) => JSON.parse(match[1]))
+        .flatMap((data) => data["@graph"] ?? [data])
+        .find((node) => node["@type"] === "FAQPage");
+      for (const question of faq.mainEntity) {
+        const visible = question.acceptedAnswer.text.replace(/'/g, "&#x27;");
+        assert.ok(html.includes(visible), `${path}: ${question.name}`);
+      }
+    }
+  });
+
   test("unknown service slugs 404", async () => {
     assert.equal((await page("/services/not-a-service")).status, 404);
   });

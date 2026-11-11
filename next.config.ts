@@ -1,3 +1,4 @@
+import createMDX from "@next/mdx";
 import type { NextConfig } from "next";
 
 const securityHeaders = [
@@ -36,4 +37,9 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+// Blog articles are MDX files imported by the /blog routes (see src/content/blog).
+const withMDX = createMDX({
+  options: { remarkPlugins: ["remark-gfm"] },
+});
+
+export default withMDX(nextConfig);

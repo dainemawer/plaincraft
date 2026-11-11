@@ -1,3 +1,4 @@
+import { articlePath, publishedArticles } from "@/content/articles";
 import { faqs, services, shortVersion } from "@/content/home";
 import { serviceDetailById, servicePath } from "@/content/services";
 import { absoluteUrl, site } from "@/lib/site";
@@ -55,10 +56,19 @@ Every engagement is then scoped and quoted in writing at a fixed fee.
 ## FAQ
 ${faqs.map((faq) => `- ${faq.question} ${faq.answer}`).join("\n")}
 
+## Guides
+${publishedArticles
+  .map(
+    (article) =>
+      `- [${article.title.replace(/\.$/, "")}](${absoluteUrl(articlePath(article))}): ${article.excerpt}`,
+  )
+  .join("\n")}
+
 ## Pages
 - [Home](${absoluteUrl("/")}): services, process, FAQ and booking
 - [Home as Markdown](${absoluteUrl("/index.md")}): the full homepage in Markdown
 - [Services](${absoluteUrl("/services")}): all services, each with its own page
+- [Blog](${absoluteUrl("/blog")}): practical guides on AI for small businesses
 - [About](${absoluteUrl("/about")}): who runs ${site.name} and how it works
 - [Contact](${absoluteUrl("/contact")}): booking link and email
 - [Privacy & POPIA notice](${absoluteUrl("/privacy")})

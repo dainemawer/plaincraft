@@ -1,6 +1,6 @@
-import Link from "next/link";
 import type { ReactNode } from "react";
 import { JsonLd } from "@/components/seo/json-ld";
+import { Breadcrumb } from "@/components/site/breadcrumb";
 import { ButtonLink } from "@/components/ui/button-link";
 import { site } from "@/lib/site";
 import {
@@ -61,27 +61,7 @@ export function ProsePage({
         })}
       />
       <header className="max-w-[760px] border-b border-ink pb-10">
-        <nav aria-label="Breadcrumb" className="mb-6 text-sm text-graphite">
-          <ol className="flex flex-wrap gap-x-2 gap-y-1">
-            {trail.map((item, index) => {
-              const current = index === trail.length - 1;
-              return (
-                <li key={item.path} className="flex gap-2">
-                  {current ? (
-                    <span aria-current="page">{item.name}</span>
-                  ) : (
-                    <>
-                      <Link href={item.path} className="hover:text-rust">
-                        {item.name}
-                      </Link>
-                      <span aria-hidden="true">/</span>
-                    </>
-                  )}
-                </li>
-              );
-            })}
-          </ol>
-        </nav>
+        <Breadcrumb trail={trail} />
         <h1 className="text-heading font-bold text-balance">{title}</h1>
         <p className="mt-6 text-lg/[1.55] text-graphite text-pretty">
           {description}

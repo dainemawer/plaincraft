@@ -12,6 +12,10 @@ type PageMetadataInput = {
   socialDescription?: string;
   /** Root-relative path of a Markdown edition of the page, if there is one. */
   markdown?: `/${string}`;
+  /** Social card image, if the page has its own. Defaults to the site card. */
+  image?: { url: string; width: number; height: number; alt: string };
+  /** Marks the page as an article for Open Graph. */
+  article?: { publishedTime: string; modifiedTime?: string; section: string };
 };
 
 /**
@@ -25,6 +29,8 @@ export function pageMetadata({
   socialTitle,
   socialDescription,
   markdown,
+  image,
+  article,
 }: PageMetadataInput): Metadata {
   const plainTitle = typeof title === "string" ? title : title.absolute;
   const ogTitle = socialTitle ?? plainTitle;
@@ -39,17 +45,27 @@ export function pageMetadata({
       ...(markdown ? { types: { "text/markdown": markdown } } : {}),
     },
     openGraph: {
-      type: "website",
       siteName: site.name,
       locale: site.ogLocale,
       url: path,
       title: ogTitle,
       description: ogDescription,
+      ...(image ? { images: [image] } : {}),
+      ...(article
+        ? {
+            type: "article",
+            publishedTime: article.publishedTime,
+            modifiedTime: article.modifiedTime ?? article.publishedTime,
+            section: article.section,
+            authors: [site.founder.url],
+          }
+        : { type: "website" }),
     },
     twitter: {
       card: "summary_large_image",
       title: ogTitle,
       description: ogDescription,
+      ...(image ? { images: [image.url] } : {}),
     },
   };
 }

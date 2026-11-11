@@ -1,7 +1,16 @@
 import { ButtonLink } from "@/components/ui/button-link";
 import { site } from "@/lib/site";
 
-export function BookCall() {
+type BookCallProps = {
+  title?: string;
+  note?: string;
+};
+
+/** Closing call to action used at the foot of most pages. */
+export function BookCall({
+  title = "Find out where AI fits in your business. In 30 minutes.",
+  note = "Free and no obligation. You'll leave with clear next steps, even if we never work together.",
+}: BookCallProps) {
   return (
     <section
       id="book"
@@ -18,7 +27,7 @@ export function BookCall() {
           data-reveal=""
           className="max-w-[1100px] text-display-cta font-bold text-balance"
         >
-          Find out where AI fits in your business. In 30 minutes.
+          {title}
         </h2>
         <div
           data-reveal=""
@@ -28,10 +37,7 @@ export function BookCall() {
           <ButtonLink href={site.calendarUrl} variant="ember" size="lg" lift>
             Book your free call
           </ButtonLink>
-          <p className="max-w-[380px] text-base/[1.5] text-mist">
-            Free and no obligation. You'll leave with clear next steps, even if
-            we never work together.
-          </p>
+          <p className="max-w-[380px] text-base/[1.5] text-mist">{note}</p>
         </div>
       </div>
     </section>

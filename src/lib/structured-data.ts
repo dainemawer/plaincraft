@@ -1,4 +1,5 @@
 import founderPhoto from "@/assets/images/daine-mawer.jpg";
+import { type Article, articlePath } from "@/content/articles";
 import { faqs, services } from "@/content/home";
 import {
   type ServiceDetail,
@@ -147,41 +148,45 @@ export type ProsePageType =
 
 export type Crumb = { name: string; path: `/${string}` };
 
-export function prosePageStructuredData(page: {
+type PageInput = {
   type: ProsePageType;
   path: `/${string}`;
   name: string;
   description: string;
   trail: Crumb[];
-}) {
+};
+
+/** A page node and its breadcrumb trail. */
+function pageNodes(page: PageInput): JsonLdNode[] {
   const breadcrumbId = absoluteUrl(`${page.path}#breadcrumb`);
-  return {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": page.type,
-        "@id": absoluteUrl(`${page.path}#webpage`),
-        url: absoluteUrl(page.path),
-        name: page.name,
-        description: page.description,
-        inLanguage: site.locale,
-        isPartOf: { "@id": ids.site },
-        publisher: { "@id": ids.org },
-        about: { "@id": ids.org },
-        breadcrumb: { "@id": breadcrumbId },
-      },
-      {
-        "@type": "BreadcrumbList",
-        "@id": breadcrumbId,
-        itemListElement: page.trail.map((crumb, index) => ({
-          "@type": "ListItem",
-          position: index + 1,
-          name: crumb.name,
-          item: absoluteUrl(crumb.path),
-        })),
-      },
-    ],
-  };
+  return [
+    {
+      "@type": page.type,
+      "@id": absoluteUrl(`${page.path}#webpage`),
+      url: absoluteUrl(page.path),
+      name: page.name,
+      description: page.description,
+      inLanguage: site.locale,
+      isPartOf: { "@id": ids.site },
+      publisher: { "@id": ids.org },
+      about: { "@id": ids.org },
+      breadcrumb: { "@id": breadcrumbId },
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": breadcrumbId,
+      itemListElement: page.trail.map((crumb, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: crumb.name,
+        item: absoluteUrl(crumb.path),
+      })),
+    },
+  ];
+}
+
+export function prosePageStructuredData(page: PageInput) {
+  return { "@context": "https://schema.org", "@graph": pageNodes(page) };
 }
 
 function serviceUrl(id: string) {
@@ -189,32 +194,121 @@ function serviceUrl(id: string) {
   return absoluteUrl(detail ? servicePath(detail) : `/#${id}`);
 }
 
-/** Service and FAQ nodes for an individual service page. */
-export function servicePageStructuredData(detail: ServiceDetail) {
-  const url = absoluteUrl(servicePath(detail));
+/** Page, breadcrumb, Service and FAQ nodes for an individual service page. */
+export function servicePageStructuredData(
+  detail: ServiceDetail,
+  trail: Crumb[],
+) {
+  const path = servicePath(detail);
+  const url = absoluteUrl(path);
   return {
     "@context": "https://schema.org",
     "@graph": [
+      ...pageNodes({
+        type: "WebPage",
+        path,
+        name: detail.title,
+        description: detail.description,
+        trail,
+      }),
       {
         "@type": "Service",
         "@id": `${url}#service`,
-        name: detail.headline,
+        name: detail.name,
         serviceType: detail.serviceType,
         description: detail.description,
         url,
+        image: absoluteUrl(detail.photo.src.src),
         provider: { "@id": ids.org },
         areaServed: southAfrica,
-        mainEntityOfPage: absoluteUrl(`${servicePath(detail)}#webpage`),
+        audience: {
+          "@type": "BusinessAudience",
+          name: "Small and medium-sized businesses with 10–250 staff",
+        },
+        mainEntityOfPage: { "@id": `${url}#webpage` },
       },
       {
         "@type": "FAQPage",
         "@id": `${url}#faq`,
+        isPartOf: { "@id": `${url}#webpage` },
         mainEntity: detail.faqs.map((faq) => ({
           "@type": "Question",
           name: faq.question,
           acceptedAnswer: { "@type": "Answer", text: faq.answer },
         })),
       },
+    ],
+  };
+}
+
+const blogId = absoluteUrl("/blog#blog");
+
+/** The blog (or one of its category pages) and the articles it lists. */
+export function blogStructuredData(
+  page: Omit<PageInput, "type">,
+  list: Article[],
+) {
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      ...pageNodes({ ...page, type: "CollectionPage" }),
+      {
+        "@type": "Blog",
+        "@id": blogId,
+        url: absoluteUrl("/blog"),
+        name: `${site.name} blog`,
+        description:
+          "Practical guides on where AI helps South African small businesses, where it doesn't and how to start.",
+        inLanguage: site.locale,
+        publisher: { "@id": ids.org },
+        blogPost: list.map((article) => ({
+          "@id": absoluteUrl(`${articlePath(article)}#article`),
+        })),
+      },
+      ...list.map((article) => ({
+        "@type": "BlogPosting",
+        "@id": absoluteUrl(`${articlePath(article)}#article`),
+        url: absoluteUrl(articlePath(article)),
+        headline: article.title,
+        datePublished: article.date,
+      })),
+    ],
+  };
+}
+
+/** A single article: page, breadcrumb and BlogPosting nodes, plus the author. */
+export function articleStructuredData(article: Article, trail: Crumb[]) {
+  const path = articlePath(article);
+  const url = absoluteUrl(path);
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      ...pageNodes({
+        type: "WebPage",
+        path,
+        name: article.title,
+        description: article.description,
+        trail,
+      }),
+      {
+        "@type": "BlogPosting",
+        "@id": `${url}#article`,
+        mainEntityOfPage: { "@id": `${url}#webpage` },
+        url,
+        headline: article.title,
+        description: article.description,
+        image: absoluteUrl(article.image.src.src),
+        datePublished: article.date,
+        dateModified: article.updated ?? article.date,
+        inLanguage: site.locale,
+        articleSection: article.category,
+        keywords: article.tags.join(", "),
+        timeRequired: `PT${article.readMinutes}M`,
+        author: { "@id": ids.founder },
+        publisher: { "@id": ids.org },
+        isPartOf: { "@id": blogId },
+      },
+      founder(),
     ],
   };
 }

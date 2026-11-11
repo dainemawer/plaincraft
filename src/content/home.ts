@@ -3,7 +3,7 @@
  * structured data and /llms.txt always say the same thing.
  */
 
-export type NavItem = { label: string; href: `/#${string}` };
+export type NavItem = { label: string; href: `/${string}` };
 
 export const primaryNav: NavItem[] = [
   { label: "What AI does", href: "/#what-ai-does" },
@@ -11,6 +11,7 @@ export const primaryNav: NavItem[] = [
   { label: "How it works", href: "/#process" },
   { label: "Why Plaincraft", href: "/#trust" },
   { label: "About", href: "/#about" },
+  { label: "Blog", href: "/blog" },
   { label: "FAQ", href: "/#faq" },
 ];
 

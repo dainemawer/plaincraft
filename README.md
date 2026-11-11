@@ -68,3 +68,19 @@ Every image slot uses `<Photo hint="…" sizes="…" />`, which shows a placehol
 ## Analytics
 
 Vercel Web Analytics and Speed Insights are both cookieless. They're mounted in `src/app/layout.tsx` and must be enabled in the Vercel dashboard.
+
+## Blog
+
+Articles are MDX files in `src/content/blog/<slug>.mdx`. Their metadata
+(title, date, category, images, `draft`) lives in `src/content/articles.ts`,
+and each body is registered in `src/content/blog/index.ts`.
+
+- Drafts (`draft: true`) are visible in `pnpm dev` only. They are left out of
+  the build, the sitemap, llms.txt and every listing.
+- To publish: finish the MDX, set `draft: false` and update `date`, then deploy
+  and run `pnpm indexnow`.
+- Every `## heading` becomes an entry in the "On this page" list.
+- Building blocks available in any article without importing:
+  `<ShortAnswer>`, `<NumberedList>`/`<NumberedItem title>`, `<Schedule>`/`<When label>`,
+  `<Pitfalls>`/`<Pitfall title>`, `<Checklist>`, `<InlineCta>`, plus `>` for a pull quote.
+- Topic pages (`/blog/category/<topic>`) are `noindex` until they list more than one article.

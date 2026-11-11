@@ -68,6 +68,11 @@ export async function SiteFooter() {
             </Link>
           </li>
           <li>
+            <Link href="/blog" className="underline">
+              Blog
+            </Link>
+          </li>
+          <li>
             <Link href="/contact" className="underline">
               Contact
             </Link>
