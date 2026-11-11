@@ -42,7 +42,7 @@ export function Photo({
         sizes={sizes}
         preload={preload}
         placeholder={typeof src === "string" ? "empty" : "blur"}
-        className="object-cover"
+        className="object-cover photo-tone"
       />
     );
   }

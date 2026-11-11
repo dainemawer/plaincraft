@@ -74,6 +74,11 @@
   font-family: var(--font-schibsted-arrows), var(--font-sans);
 }
 
+/* House photo treatment: warm monochrome, matching the palette. */
+@utility photo-tone {
+  filter: grayscale(1) sepia(0.18) contrast(1.06) brightness(0.98);
+}
+
 @utility section-y {
   padding-block: clamp(64px, 9vw, 128px);
 }
