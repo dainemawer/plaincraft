@@ -1,4 +1,3 @@
-import { Photo } from "@/components/ui/photo";
 import { SmartLink } from "@/components/ui/smart-link";
 import { aiJobs } from "@/content/home";
 import { site } from "@/lib/site";
@@ -36,13 +35,6 @@ export function WhatAiDoes() {
               aria-labelledby={`${job.id}-title`}
               className="flex w-full flex-col gap-4 border-r border-b border-ink bg-paper p-[clamp(28px,3vw,40px)] transition-colors duration-300 hover:bg-cream"
             >
-              <div className="relative mb-2 aspect-[4/3] w-full border border-ink bg-sand">
-                <Photo
-                  src={job.photo.src}
-                  alt={job.photo.alt}
-                  sizes="(min-width: 1280px) 400px, (min-width: 700px) 33vw, 100vw"
-                />
-              </div>
               <span
                 aria-hidden="true"
                 className="text-[15px] font-semibold text-rust"

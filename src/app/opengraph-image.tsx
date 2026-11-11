@@ -1,13 +1,14 @@
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { ImageResponse } from "next/og";
+import { logoMark } from "@/lib/logo-mark";
 import { site } from "@/lib/site";
 
 export const alt = `${site.name}: practical AI for South African SMEs`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-const { ink, paper, ember } = site.theme;
+const { ink, paper } = site.theme;
 
 async function loadFont() {
   "use cache";
@@ -36,13 +37,17 @@ export default async function OpengraphImage() {
       }}
     >
       <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
-        <div
-          style={{
-            width: 40,
-            height: 40,
-            backgroundImage: `linear-gradient(135deg, ${ember} 50%, ${ink} 50%)`,
-          }}
-        />
+        <svg
+          aria-hidden="true"
+          width={40}
+          height={40 * (logoMark.height / logoMark.width)}
+          viewBox={`0 0 ${logoMark.width} ${logoMark.height}`}
+          fill={ink}
+        >
+          {logoMark.paths.map((d) => (
+            <path key={d} d={d} />
+          ))}
+        </svg>
         <div style={{ fontSize: 40, letterSpacing: "-0.03em" }}>
           {site.name}
         </div>

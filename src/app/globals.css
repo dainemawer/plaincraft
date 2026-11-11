@@ -143,6 +143,21 @@
     animation-delay: calc(100ms + var(--hero-index, 0) * 110ms);
   }
 
+  [data-drift] {
+    will-change: transform;
+    animation: drift-a 16s ease-in-out infinite alternate;
+  }
+
+  [data-drift="b"] {
+    animation-name: drift-b;
+    animation-duration: 19s;
+  }
+
+  [data-drift="c"] {
+    animation-name: drift-c;
+    animation-duration: 23s;
+  }
+
   [data-reveal="pending"] {
     opacity: 0;
   }
@@ -163,6 +178,33 @@
     & [data-audit-scan] {
       animation: scan 4200ms ease-in-out 1400ms infinite backwards;
     }
+  }
+}
+
+@keyframes drift-a {
+  50% {
+    transform: translate3d(-18%, 12%, 0) scale(1.15);
+  }
+  to {
+    transform: translate3d(-6%, 24%, 0) scale(0.92);
+  }
+}
+
+@keyframes drift-b {
+  50% {
+    transform: translate3d(22%, -14%, 0) scale(1.2);
+  }
+  to {
+    transform: translate3d(34%, 8%, 0) scale(1);
+  }
+}
+
+@keyframes drift-c {
+  50% {
+    transform: translate3d(-26%, -30%, 0) scale(1.25);
+  }
+  to {
+    transform: translate3d(14%, -18%, 0) scale(0.9);
   }
 }
 

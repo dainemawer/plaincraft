@@ -1,3 +1,4 @@
+import { logoMark } from "@/lib/logo-mark";
 import { site } from "@/lib/site";
 
 type LogoProps = {
@@ -5,7 +6,7 @@ type LogoProps = {
   tone?: "light" | "dark";
 };
 
-/** The split-square mark and wordmark. Purely presentational. */
+/** The diamond mark and wordmark. Purely presentational. */
 export function Logo({ tone = "light" }: LogoProps) {
   const isDark = tone === "dark";
 
@@ -13,14 +14,16 @@ export function Logo({ tone = "light" }: LogoProps) {
     <span
       className={`flex items-center gap-2.5 ${isDark ? "text-paper" : "text-ink"}`}
     >
-      <span
+      <svg
         aria-hidden="true"
-        className={`block ${
-          isDark
-            ? "size-4 bg-[linear-gradient(135deg,var(--color-ember)_50%,var(--color-paper)_50%)]"
-            : "size-[18px] bg-[linear-gradient(135deg,var(--color-ember)_50%,var(--color-ink)_50%)]"
-        }`}
-      />
+        viewBox={`0 0 ${logoMark.width} ${logoMark.height}`}
+        className={isDark ? "h-[22px] w-auto" : "h-6 w-auto"}
+        fill="currentColor"
+      >
+        {logoMark.paths.map((d) => (
+          <path key={d} d={d} />
+        ))}
+      </svg>
       <span
         className={`font-bold tracking-[-0.03em] ${isDark ? "text-lg" : "text-[19px]"}`}
       >

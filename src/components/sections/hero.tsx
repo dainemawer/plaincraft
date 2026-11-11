@@ -1,6 +1,7 @@
 import { ButtonLink } from "@/components/ui/button-link";
 import { heroChecks } from "@/content/home";
 import { site } from "@/lib/site";
+import { HeroBackdrop } from "./hero-backdrop";
 
 export function Hero() {
   return (
@@ -9,10 +10,7 @@ export function Hero() {
       aria-labelledby="hero-title"
       className="relative overflow-hidden"
     >
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(70%_60%_at_100%_0%,rgb(232_73_42/0.10),transparent_70%)]"
-      />
+      <HeroBackdrop />
       <div className="shell relative pt-[clamp(56px,9vw,136px)] pb-[clamp(56px,8vw,112px)]">
         <h1
           id="hero-title"

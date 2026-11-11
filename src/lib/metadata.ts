@@ -10,6 +10,8 @@ type PageMetadataInput = {
   /** Optional shorter title for social cards. */
   socialTitle?: string;
   socialDescription?: string;
+  /** Root-relative path of a Markdown edition of the page, if there is one. */
+  markdown?: `/${string}`;
 };
 
 /**
@@ -22,6 +24,7 @@ export function pageMetadata({
   path,
   socialTitle,
   socialDescription,
+  markdown,
 }: PageMetadataInput): Metadata {
   const plainTitle = typeof title === "string" ? title : title.absolute;
   const ogTitle = socialTitle ?? plainTitle;
@@ -33,6 +36,7 @@ export function pageMetadata({
     alternates: {
       canonical: path,
       languages: { [site.locale]: path },
+      ...(markdown ? { types: { "text/markdown": markdown } } : {}),
     },
     openGraph: {
       type: "website",

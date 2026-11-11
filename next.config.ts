@@ -28,7 +28,11 @@ const nextConfig: NextConfig = {
     },
   },
   async headers() {
-    return [{ source: "/:path*", headers: securityHeaders }];
+    return [
+      { source: "/:path*", headers: securityHeaders },
+      // "/" is negotiated between HTML and Markdown (see src/proxy.ts).
+      { source: "/", headers: [{ key: "Vary", value: "Accept" }] },
+    ];
   },
 };
 

@@ -22,6 +22,7 @@ export const metadata = pageMetadata({
   path: "/",
   socialTitle: site.shortTitle,
   socialDescription: site.socialDescription,
+  markdown: "/index.md",
 });
 
 export default function HomePage() {
@@ -29,8 +30,8 @@ export default function HomePage() {
     <>
       <JsonLd data={homeStructuredData()} />
       <Hero />
-      <PainPoints />
       <WhatAiDoes />
+      <PainPoints />
       <FreeCall />
       <PhotoBand />
       <Services />

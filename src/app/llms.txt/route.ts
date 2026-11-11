@@ -31,6 +31,7 @@ ${faqs.map((faq) => `- ${faq.question} ${faq.answer}`).join("\n")}
 
 ## Pages
 - [Home](${absoluteUrl("/")}): services, process, FAQ and booking
+- [Home as Markdown](${absoluteUrl("/index.md")}): the full homepage in Markdown
 - [Privacy & POPIA notice](${absoluteUrl("/privacy")})
 - [Terms of use](${absoluteUrl("/terms")})
 `;

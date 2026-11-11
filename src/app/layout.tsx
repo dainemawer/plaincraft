@@ -46,6 +46,7 @@ export const metadata: Metadata = {
   other: {
     "geo.region": "ZA",
     "geo.placename": "South Africa",
+    "is-agentic-site-type": "business",
   },
 };
 

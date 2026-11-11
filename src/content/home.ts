@@ -3,11 +3,6 @@
  * structured data and /llms.txt always say the same thing.
  */
 
-import type { StaticImageData } from "next/image";
-import aiAnswersPhoto from "@/assets/images/ai-answers.jpg";
-import aiReadsPhoto from "@/assets/images/ai-reads.jpg";
-import aiWritesPhoto from "@/assets/images/ai-writes.jpg";
-
 export type NavItem = { label: string; href: `/#${string}` };
 
 export const primaryNav: NavItem[] = [
@@ -39,7 +34,6 @@ export type AiJob = {
   title: string;
   body: string;
   example: string;
-  photo: { src: StaticImageData; alt: string };
 };
 
 export const aiJobs: AiJob[] = [
@@ -48,30 +42,18 @@ export const aiJobs: AiJob[] = [
     title: "It writes.",
     body: "First drafts of quotes, proposals, emails and reports in your tone, ready for a person to check and send.",
     example: "quotes drafted in minutes instead of an afternoon.",
-    photo: {
-      src: aiWritesPhoto,
-      alt: "A joiner typing up a quote on a laptop at a workshop desk, beside a handwritten notebook and an orange mug.",
-    },
   },
   {
     id: "ai-reads",
     title: "It reads.",
     body: "It pulls the details out of invoices, contracts, CVs and forms, then puts them where they need to go.",
     example: "no more re-typing supplier invoices into your accounts.",
-    photo: {
-      src: aiReadsPhoto,
-      alt: "A hand leafing through a messy pile of supplier invoices and receipts next to a desk calculator.",
-    },
   },
   {
     id: "ai-answers",
     title: "It answers.",
     body: "It replies to routine questions from customers or staff at any hour, using your own information.",
     example: "your price list and policies, answered instantly.",
-    photo: {
-      src: aiAnswersPhoto,
-      alt: "A hand holding a phone with a chat conversation open, at the counter of a hardware shop.",
-    },
   },
 ];
 

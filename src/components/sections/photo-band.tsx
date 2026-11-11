@@ -4,10 +4,7 @@ import { site } from "@/lib/site";
 
 export function PhotoBand() {
   return (
-    <section
-      aria-label={`Working with ${site.name}`}
-      className="relative border-y border-ink"
-    >
+    <section aria-label={`Working with ${site.name}`} className="relative">
       <div
         data-reveal=""
         className="relative aspect-[21/8] min-h-80 w-full bg-sand"
