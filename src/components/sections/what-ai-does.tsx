@@ -38,7 +38,8 @@ export function WhatAiDoes() {
             >
               <div className="relative mb-2 aspect-[4/3] w-full border border-ink bg-sand">
                 <Photo
-                  hint={job.photoHint}
+                  src={job.photo.src}
+                  alt={job.photo.alt}
                   sizes="(min-width: 1280px) 400px, (min-width: 700px) 33vw, 100vw"
                 />
               </div>

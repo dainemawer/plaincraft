@@ -1,16 +1,24 @@
 import Image, { type StaticImageData } from "next/image";
 
 type PhotoProps = {
-  /** Image to show. While empty, a labelled placeholder is rendered instead. */
-  src?: string | StaticImageData;
-  alt?: string;
-  /** Art direction for the photographer; shown only while the slot is empty. */
-  hint: string;
   sizes: string;
   preload?: boolean;
   /** Placeholder contrast: "light" on sand backgrounds, "dark" on ink. */
   tone?: "light" | "dark";
-};
+} & (
+  | {
+      src: string | StaticImageData;
+      /** Describe what the photo shows; required whenever there is an image. */
+      alt: string;
+      hint?: never;
+    }
+  | {
+      src?: undefined;
+      alt?: never;
+      /** Art direction for the photographer, shown while the slot is empty. */
+      hint: string;
+    }
+);
 
 /**
  * Fills its positioned parent with a photo. Until real photography is
@@ -19,7 +27,7 @@ type PhotoProps = {
  */
 export function Photo({
   src,
-  alt = "",
+  alt,
   hint,
   sizes,
   preload = false,
@@ -33,6 +41,7 @@ export function Photo({
         fill
         sizes={sizes}
         preload={preload}
+        placeholder={typeof src === "string" ? "empty" : "blur"}
         className="object-cover"
       />
     );

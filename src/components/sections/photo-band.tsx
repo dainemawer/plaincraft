@@ -1,3 +1,4 @@
+import teamAtWork from "@/assets/images/team-at-work.jpg";
 import { Photo } from "@/components/ui/photo";
 import { site } from "@/lib/site";
 
@@ -12,7 +13,8 @@ export function PhotoBand() {
         className="relative aspect-[21/8] min-h-80 w-full bg-sand"
       >
         <Photo
-          hint="Wide photo: you working alongside a client team, real office, natural light"
+          src={teamAtWork}
+          alt="A small team working together around a timber table with laptops and a printed plan, Table Mountain visible through the office windows."
           sizes="100vw"
         />
         <div className="pointer-events-none absolute right-[clamp(16px,4vw,48px)] bottom-[clamp(16px,4vw,48px)] max-w-[420px] border border-ink bg-paper px-6 py-5">
