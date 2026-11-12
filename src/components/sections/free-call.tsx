@@ -1,5 +1,6 @@
 import { ButtonLink } from "@/components/ui/button-link";
 import { callAgenda } from "@/content/home";
+import { events, track } from "@/lib/analytics";
 import { site } from "@/lib/site";
 
 export function FreeCall() {
@@ -18,7 +19,12 @@ export function FreeCall() {
             Thirty minutes on video. You don't need to prepare anything or know
             anything about AI.
           </p>
-          <ButtonLink href={site.calendarUrl} lift className="mt-8">
+          <ButtonLink
+            href={site.calendarUrl}
+            lift
+            className="mt-8"
+            {...track(events.bookCall, "free-call")}
+          >
             Pick a time that suits you
           </ButtonLink>
         </div>

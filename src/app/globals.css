@@ -236,3 +236,8 @@
     transform: translateY(340px);
   }
 }
+
+/* Keep the page still behind an open modal. */
+html:has(dialog[open]:modal) {
+  overflow: hidden;
+}

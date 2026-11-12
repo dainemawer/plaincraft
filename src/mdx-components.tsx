@@ -2,6 +2,7 @@ import type { MDXComponents } from "mdx/types";
 import type { ReactNode } from "react";
 import { ButtonLink } from "@/components/ui/button-link";
 import { SmartLink } from "@/components/ui/smart-link";
+import { events, track } from "@/lib/analytics";
 import { site } from "@/lib/site";
 import { slugify, textOf } from "@/lib/slug";
 
@@ -118,7 +119,11 @@ function InlineCta({ children }: { children: ReactNode }) {
       <div className="max-w-[400px] text-xl/[1.4] font-semibold tracking-[-0.015em] text-pretty [&_p]:m-0">
         {children}
       </div>
-      <ButtonLink href={site.calendarUrl} variant="ember">
+      <ButtonLink
+        href={site.calendarUrl}
+        variant="ember"
+        {...track(events.bookCall, "article-inline")}
+      >
         Book a free call
       </ButtonLink>
     </aside>

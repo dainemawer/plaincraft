@@ -18,6 +18,7 @@ import {
   publishedArticles,
 } from "@/content/articles";
 import { articleBodies, articleSource, articleToc } from "@/content/blog";
+import { events, track } from "@/lib/analytics";
 import { pageMetadata } from "@/lib/metadata";
 import { absoluteUrl, site } from "@/lib/site";
 import { articleStructuredData, type Crumb } from "@/lib/structured-data";
@@ -176,6 +177,7 @@ export default async function ArticlePage({
               variant="dark"
               size="compact"
               className="justify-between"
+              {...track(events.bookCall, "article-sidebar")}
             >
               Book a free call
             </ButtonLink>

@@ -1,4 +1,5 @@
 import { faqs } from "@/content/home";
+import { events, track } from "@/lib/analytics";
 import { site } from "@/lib/site";
 
 type FaqProps = {
@@ -26,6 +27,7 @@ export function Faq({
             <a
               href={`mailto:${site.email}`}
               className="text-ink underline hover:text-rust"
+              {...track(events.email, "faq")}
             >
               {site.email}
             </a>

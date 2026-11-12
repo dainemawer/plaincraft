@@ -2,6 +2,7 @@ import { cacheLife } from "next/cache";
 import Link from "next/link";
 import { Logo } from "@/components/ui/logo";
 import { footerServiceLinks } from "@/content/home";
+import { events, track } from "@/lib/analytics";
 import { site } from "@/lib/site";
 
 async function getCopyrightYear() {
@@ -38,7 +39,11 @@ export async function SiteFooter() {
 
         <address className="flex flex-col items-start gap-2.5 text-sm not-italic">
           <span className="text-xs text-stone">Contact</span>
-          <a href={`mailto:${site.email}`} className="text-paper no-underline">
+          <a
+            href={`mailto:${site.email}`}
+            className="text-paper no-underline"
+            {...track(events.email, "footer")}
+          >
             {site.email}
           </a>
           <span>{site.location}</span>

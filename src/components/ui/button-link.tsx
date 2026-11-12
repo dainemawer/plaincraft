@@ -21,27 +21,29 @@ const sizes = {
   lg: "gap-3 px-[30px] py-5 min-h-14 text-lg",
 } as const;
 
-type ButtonLinkProps = Omit<ComponentProps<"a">, "href"> & {
-  href: string;
+type ButtonStyle = {
   variant?: keyof typeof variants;
   size?: keyof typeof sizes;
   /** Lift the button by 2px on hover. */
   lift?: boolean;
-  /** Decorative trailing glyph, hidden from assistive technology. */
-  icon?: "→" | "↗" | null;
+  className?: string;
 };
 
-/** A link styled as a button. Navigation stays a link, never a <button>. */
-export function ButtonLink({
+type ButtonLinkProps = Omit<ComponentProps<"a">, "href"> &
+  ButtonStyle & {
+    href: string;
+    /** Decorative trailing glyph, hidden from assistive technology. */
+    icon?: "→" | "↗" | null;
+  };
+
+/** Button classes, shared with the few real <button>s that open dialogs. */
+export function buttonClasses({
   variant = "solid",
   size = "md",
   lift = false,
-  icon = "→",
   className = "",
-  children,
-  ...rest
-}: ButtonLinkProps) {
-  const classes = [
+}: ButtonStyle = {}) {
+  return [
     "inline-flex items-center font-semibold no-underline whitespace-nowrap",
     "transition-[background-color,color,border-color,translate] duration-250",
     variants[variant],
@@ -51,9 +53,23 @@ export function ButtonLink({
   ]
     .filter(Boolean)
     .join(" ");
+}
 
+/** A link styled as a button. Navigation stays a link, never a <button>. */
+export function ButtonLink({
+  variant,
+  size,
+  lift,
+  icon = "→",
+  className,
+  children,
+  ...rest
+}: ButtonLinkProps) {
   return (
-    <SmartLink className={classes} {...rest}>
+    <SmartLink
+      className={buttonClasses({ variant, size, lift, className })}
+      {...rest}
+    >
       {children}
       {icon ? (
         <span aria-hidden="true" className="glyph">

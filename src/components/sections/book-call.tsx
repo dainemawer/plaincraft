@@ -1,4 +1,5 @@
 import { ButtonLink } from "@/components/ui/button-link";
+import { events, track } from "@/lib/analytics";
 import { site } from "@/lib/site";
 
 type BookCallProps = {
@@ -34,7 +35,13 @@ export function BookCall({
           data-reveal-delay={120}
           className="mt-11 flex flex-wrap items-center gap-x-8 gap-y-5"
         >
-          <ButtonLink href={site.calendarUrl} variant="ember" size="lg" lift>
+          <ButtonLink
+            href={site.calendarUrl}
+            variant="ember"
+            size="lg"
+            lift
+            {...track(events.bookCall, "book-call")}
+          >
             Book your free call
           </ButtonLink>
           <p className="max-w-[380px] text-base/[1.5] text-mist">{note}</p>

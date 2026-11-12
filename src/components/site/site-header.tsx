@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ButtonLink } from "@/components/ui/button-link";
 import { Logo } from "@/components/ui/logo";
 import { primaryNav } from "@/content/home";
+import { events, track } from "@/lib/analytics";
 import { site } from "@/lib/site";
 import { MenuButton, MenuPanel } from "./menu-context";
 
@@ -31,7 +32,11 @@ export function SiteHeader() {
         </ul>
 
         <div className="flex items-center gap-2.5">
-          <ButtonLink href={site.calendarUrl} size="sm">
+          <ButtonLink
+            href={site.calendarUrl}
+            size="sm"
+            {...track(events.bookCall, "header")}
+          >
             Book a call
           </ButtonLink>
           <MenuButton />

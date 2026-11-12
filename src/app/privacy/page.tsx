@@ -31,8 +31,8 @@ export default function PrivacyPage() {
       <ul>
         <li>
           <strong>Information you send us</strong>, such as your name, email
-          address, company and anything you write when you email us or book a
-          call.
+          address, company and anything you write when you email us, book a call
+          or apply for a founding-client spot.
         </li>
         <li>
           <strong>Anonymous usage data</strong>. We use Vercel Web Analytics and
@@ -61,10 +61,12 @@ export default function PrivacyPage() {
       <p>
         We share personal information only with service providers that help us
         operate, and only as far as they need it: Vercel (website hosting and
-        analytics), ImprovMX (email forwarding) and Cal.com (call booking). Some
-        of these providers store data outside South Africa. Where that happens,
-        we rely on providers bound by data protection laws or agreements that
-        give a level of protection comparable to POPIA.
+        analytics), Resend (sending email, including replies to the
+        founding-client application form), ImprovMX (email forwarding) and
+        Cal.com (call booking). Some of these providers store data outside South
+        Africa. Where that happens, we rely on providers bound by data
+        protection laws or agreements that give a level of protection comparable
+        to POPIA.
       </p>
 
       <h2>Client data</h2>

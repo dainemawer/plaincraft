@@ -16,6 +16,7 @@ import {
   servicePath,
   serviceStage,
 } from "@/content/services";
+import { events, track } from "@/lib/analytics";
 import { pageMetadata } from "@/lib/metadata";
 import { site } from "@/lib/site";
 import type { Crumb } from "@/lib/structured-data";
@@ -119,13 +120,18 @@ function ServiceHero({
               style={{ "--hero-index": 3 }}
               className="mt-9 flex flex-wrap gap-3"
             >
-              <ButtonLink href={site.calendarUrl} lift>
+              <ButtonLink
+                href={site.calendarUrl}
+                lift
+                {...track(events.bookCall, "service-hero")}
+              >
                 Start with a free call
               </ButtonLink>
               <ButtonLink
                 href={detail.showSample ? "#sample" : "#included"}
                 variant="outline"
                 icon={null}
+                {...track(events.explore, "service-hero")}
               >
                 {detail.showSample ? "See a sample result" : "What's included"}
               </ButtonLink>
@@ -227,7 +233,11 @@ function Fit({ detail }: { detail: ServiceDetail }) {
             </ul>
             <p className="mt-6 border-t border-ink/15 pt-4 text-[15px]/[1.5]">
               Unsure?{" "}
-              <a href={site.calendarUrl} className="underline hover:text-rust">
+              <a
+                href={site.calendarUrl}
+                className="underline hover:text-rust"
+                {...track(events.bookCall, "service-pricing")}
+              >
                 Ask on the free call
               </a>
               . I'll tell you honestly.
@@ -370,7 +380,12 @@ function Price({ detail }: { detail: ServiceDetail }) {
               </li>
             ))}
           </ul>
-          <ButtonLink href={site.calendarUrl} lift className="self-start">
+          <ButtonLink
+            href={site.calendarUrl}
+            lift
+            className="self-start"
+            {...track(events.bookCall, "service-quote")}
+          >
             Get a quote on a free call
           </ButtonLink>
         </div>

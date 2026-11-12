@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { ButtonLink } from "@/components/ui/button-link";
+import { events, track } from "@/lib/analytics";
 import { useMenu } from "./menu-context";
 
 /** Distance scrolled before the bar appears, roughly past the hero. */
@@ -29,7 +30,12 @@ export function StickyCta({ href }: { href: string }) {
       <p className="flex-1 text-sm/[1.35] font-medium">
         Free 30-min call. No jargon.
       </p>
-      <ButtonLink href={href} variant="dark" size="compact">
+      <ButtonLink
+        href={href}
+        variant="dark"
+        size="compact"
+        {...track(events.bookCall, "sticky-bar")}
+      >
         Book now
       </ButtonLink>
     </aside>

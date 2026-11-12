@@ -25,7 +25,7 @@ export const site = {
   /** Core service terms, used in structured data. Each also appears on the page. */
   keywords: ["AI consultancy", "AI readiness audit", "Fractional Head of AI"],
   /** Booking link used by every "Book a call" button. */
-  calendarUrl: "https://cal.com/plaincraft/30min",
+  calendarUrl: "https://cal.com/plaincraft/freeaidiscoverycall",
   linkedInUrl: "https://www.linkedin.com/in/dainemawer/",
   founder: {
     name: "Daine Mawer",
@@ -34,6 +34,8 @@ export const site = {
     location: "Cape Town, South Africa",
   },
   showFoundingOffer: true,
+  /** Founding-client places for 2027; applicants are counted against this. */
+  foundingSpots: 5,
   theme: {
     paper: "#F4F2ED",
     ink: "#121210",

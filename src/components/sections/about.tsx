@@ -2,6 +2,7 @@ import founderPhoto from "@/assets/images/daine-mawer.jpg";
 import { ButtonLink } from "@/components/ui/button-link";
 import { Photo } from "@/components/ui/photo";
 import { founderFacts } from "@/content/home";
+import { events, track } from "@/lib/analytics";
 import { site } from "@/lib/site";
 
 export function About() {
@@ -68,6 +69,7 @@ export function About() {
               icon="↗"
               rel="me noopener noreferrer"
               target="_blank"
+              {...track(events.linkedIn, "about")}
             >
               Connect on LinkedIn
               <span className="sr-only">(opens in a new tab)</span>

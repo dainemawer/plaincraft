@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { JsonLd } from "@/components/seo/json-ld";
 import { Breadcrumb } from "@/components/site/breadcrumb";
 import { ButtonLink } from "@/components/ui/button-link";
+import { events, track } from "@/lib/analytics";
 import { site } from "@/lib/site";
 import {
   type Crumb,
@@ -90,7 +91,11 @@ export function ProsePage({
             Plain English, no sales pitch. If AI isn't the answer for your
             business, I'll say so.
           </p>
-          <ButtonLink href={site.calendarUrl} className="mt-6">
+          <ButtonLink
+            href={site.calendarUrl}
+            className="mt-6"
+            {...track(events.bookCall, "page-aside")}
+          >
             Book your free call
           </ButtonLink>
         </aside>

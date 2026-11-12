@@ -1,5 +1,6 @@
 import { SmartLink } from "@/components/ui/smart-link";
 import { aiJobs } from "@/content/home";
+import { events, track } from "@/lib/analytics";
 import { site } from "@/lib/site";
 
 export function WhatAiDoes() {
@@ -67,6 +68,7 @@ export function WhatAiDoes() {
         </p>
         <SmartLink
           href={site.calendarUrl}
+          {...track(events.bookCall, "what-ai-does")}
           className="inline-flex min-h-11 items-center gap-2.5 text-base font-semibold underline underline-offset-[5px] hover:text-rust"
         >
           Not sure which applies to you? Ask me{" "}

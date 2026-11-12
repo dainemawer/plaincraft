@@ -1,5 +1,6 @@
 import { ButtonLink } from "@/components/ui/button-link";
 import { heroChecks } from "@/content/home";
+import { events, track } from "@/lib/analytics";
 import { site } from "@/lib/site";
 import { HeroBackdrop } from "./hero-backdrop";
 
@@ -41,10 +42,19 @@ export function Hero() {
               style={{ "--hero-index": 2 }}
               className="flex flex-wrap gap-3"
             >
-              <ButtonLink href={site.calendarUrl} lift>
+              <ButtonLink
+                href={site.calendarUrl}
+                lift
+                {...track(events.bookCall, "hero")}
+              >
                 Book your free call
               </ButtonLink>
-              <ButtonLink href="/#what-ai-does" variant="outline" icon={null}>
+              <ButtonLink
+                href="/#what-ai-does"
+                variant="outline"
+                icon={null}
+                {...track(events.explore, "hero")}
+              >
                 What can AI do for me?
               </ButtonLink>
             </div>
