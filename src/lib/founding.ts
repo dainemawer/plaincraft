@@ -8,12 +8,13 @@ export type FoundingSpots = { total: number; taken: number; left: number };
 
 /**
  * Founding spots taken, counted as unique applicants in the Resend segment.
- * Remove a contact from the segment in Resend to free its spot again.
+ * Remove a contact from the segment in Resend to free its spot again; the
+ * count catches up within a minute or two.
  */
 export async function getFoundingSpots(): Promise<FoundingSpots> {
   "use cache";
   cacheTag(FOUNDING_SPOTS_TAG);
-  cacheLife("hours");
+  cacheLife("minutes");
 
   const total = site.foundingSpots;
   const segmentId = process.env.RESEND_FOUNDING_SEGMENT_ID;
