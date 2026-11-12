@@ -13,7 +13,7 @@ export default function TermsPage() {
       path="/terms"
       title={title}
       description={description}
-      updated="2026-11-11"
+      updated="2026-11-12"
     >
       <h2>About these terms</h2>
       <p>
@@ -25,9 +25,10 @@ export default function TermsPage() {
 
       <h2>Information on this website</h2>
       <p>
-        The content on this website is general information about {site.name}'s
-        services. It is not professional, legal or financial advice for your
-        specific situation. Examples and the sample audit are illustrative.
+        The content on this website, including the articles on the blog, is
+        general information. It is not professional, legal or financial advice
+        for your specific situation. Examples and the sample audit are
+        illustrative.
       </p>
 
       <h2>Pricing and availability</h2>

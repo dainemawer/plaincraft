@@ -13,7 +13,7 @@ export default function PrivacyPage() {
       path="/privacy"
       title={title}
       description={description}
-      updated="2026-11-11"
+      updated="2026-11-12"
     >
       <h2>Who we are</h2>
       <p>
@@ -36,8 +36,9 @@ export default function PrivacyPage() {
         </li>
         <li>
           <strong>Anonymous usage data</strong>. We use Vercel Web Analytics and
-          Speed Insights to understand page views and site performance. These
-          tools do not use cookies and do not identify individual visitors.
+          Speed Insights to understand page views, which buttons get clicked and
+          how the site performs. These tools do not use cookies and do not
+          identify individual visitors.
         </li>
       </ul>
       <p>
@@ -48,6 +49,11 @@ export default function PrivacyPage() {
       <h2>Why we use it</h2>
       <ul>
         <li>To respond to your enquiry and arrange a discovery call.</li>
+        <li>
+          To consider a founding-client application, or to let you know if a
+          spot opens up when you have joined the waitlist. Applicants are kept
+          on a private list so we can count the spots taken.
+        </li>
         <li>To prepare and deliver an engagement you have agreed to.</li>
         <li>To keep this website secure and working well.</li>
       </ul>
@@ -62,11 +68,11 @@ export default function PrivacyPage() {
         We share personal information only with service providers that help us
         operate, and only as far as they need it: Vercel (website hosting and
         analytics), Resend (sending email, including replies to the
-        founding-client application form), ImprovMX (email forwarding) and
-        Cal.com (call booking). Some of these providers store data outside South
-        Africa. Where that happens, we rely on providers bound by data
-        protection laws or agreements that give a level of protection comparable
-        to POPIA.
+        founding-client application form and holding the list of applicants),
+        ImprovMX (email forwarding) and Cal.com (call booking). Some of these
+        providers store data outside South Africa. Where that happens, we rely
+        on providers bound by data protection laws or agreements that give a
+        level of protection comparable to POPIA.
       </p>
 
       <h2>Client data</h2>

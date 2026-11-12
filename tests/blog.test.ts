@@ -7,8 +7,8 @@ import { describe, test } from "node:test";
 
 const BASE_URL = process.env.BASE_URL ?? "http://localhost:3000";
 
-const published = ["/blog/what-ai-can-do-for-a-small-business"];
-const drafts = [
+const published = [
+  "/blog/what-ai-can-do-for-a-small-business",
   "/blog/unused-chatgpt-licences",
   "/blog/popia-ai-tools-checklist",
   "/blog/automating-quotes",
@@ -17,6 +17,7 @@ const drafts = [
   "/blog/ai-usage-policy",
   "/blog/invoice-capture",
 ];
+const drafts: string[] = [];
 
 const page = async (path: string, headers: Record<string, string> = {}) => {
   const res = await fetch(new URL(path, BASE_URL), { headers });
@@ -119,11 +120,11 @@ describe("drafts", () => {
 
 describe("topic pages", () => {
   test("stay out of the index until they list more than one article", async () => {
-    const { status, html } = await page("/blog/category/guides");
+    const { status, html } = await page("/blog/category/buying");
     assert.equal(status, 200);
     assert.match(html, /<meta name="robots" content="noindex, follow"/);
     assert.ok(
-      !(await page("/sitemap.xml")).html.includes("/blog/category/guides"),
+      !(await page("/sitemap.xml")).html.includes("/blog/category/buying"),
     );
   });
 
