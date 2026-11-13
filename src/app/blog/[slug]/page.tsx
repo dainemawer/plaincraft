@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import founderPhoto from "@/assets/images/daine-mawer.jpg";
 import { ArticleCard } from "@/components/blog/article-card";
+import { NewsletterForm } from "@/components/newsletter/newsletter-form";
 import { BookCall } from "@/components/sections/book-call";
 import { JsonLd } from "@/components/seo/json-ld";
 import { Breadcrumb } from "@/components/site/breadcrumb";
@@ -230,6 +231,23 @@ export default async function ArticlePage({
                   More about me
                 </Link>
               </div>
+            </section>
+
+            <section
+              aria-labelledby="post-newsletter"
+              className="mt-10 border border-ink bg-cream p-[clamp(20px,3vw,32px)]"
+            >
+              <h2
+                id="post-newsletter"
+                className="text-2xl font-bold tracking-[-0.025em] text-balance"
+              >
+                Get the next guide by email.
+              </h2>
+              <p className="mt-2 mb-5 text-base/[1.55] text-graphite">
+                Practical notes on AI for small businesses, written for owners
+                rather than engineers. No hype, no sales pitch.
+              </p>
+              <NewsletterForm source="article" />
             </section>
           </div>
         </div>

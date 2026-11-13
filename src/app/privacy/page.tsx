@@ -35,6 +35,14 @@ export default function PrivacyPage() {
           or apply for a founding-client spot.
         </li>
         <li>
+          <strong>
+            Your email address, if you subscribe to the newsletter
+          </strong>
+          . We only add it after you confirm by clicking the link we email you,
+          use it only to send the newsletter, and remove it when you click
+          unsubscribe in any issue.
+        </li>
+        <li>
           <strong>Anonymous usage data</strong>. We use Vercel Web Analytics and
           Speed Insights to understand page views, which buttons get clicked and
           how the site performs. These tools do not use cookies and do not

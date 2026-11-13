@@ -59,6 +59,9 @@ export const knownPaths = new Set<string>([
   // Topic pages exist (noindex) before they have enough articles for the sitemap.
   ...activeCategories.map(categoryPath),
   ...generatedRoutes,
+  // Newsletter confirmation steps: real pages, but noindex and not in the sitemap.
+  "/newsletter/confirmed",
+  "/newsletter/link-expired",
 ]);
 
 export const lastModified = "2026-11-11";

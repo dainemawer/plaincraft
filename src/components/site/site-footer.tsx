@@ -1,5 +1,6 @@
 import { cacheLife } from "next/cache";
 import Link from "next/link";
+import { NewsletterForm } from "@/components/newsletter/newsletter-form";
 import { Logo } from "@/components/ui/logo";
 import { footerServiceLinks } from "@/content/home";
 import { events, track } from "@/lib/analytics";
@@ -60,6 +61,17 @@ export async function SiteFooter() {
             <span className="sr-only">(opens in a new tab)</span>
           </a>
         </address>
+
+        <section aria-labelledby="footer-newsletter" className="text-sm">
+          <h2 id="footer-newsletter" className="mb-2.5 text-xs text-stone">
+            Newsletter
+          </h2>
+          <p className="mb-3.5 text-sm/[1.55] text-paper">
+            Practical notes on where AI helps a small business, and where it
+            doesn't.
+          </p>
+          <NewsletterForm source="footer" tone="dark" />
+        </section>
       </div>
 
       <div className="shell flex flex-wrap justify-between gap-3 border-t border-paper/10 pt-5 pb-8 text-[13px] text-stone">

@@ -12,6 +12,8 @@ export const events = {
   email: "Email click",
   linkedIn: "LinkedIn click",
   explore: "Explore click",
+  newsletterSignup: "Newsletter signup",
+  newsletterConfirmed: "Newsletter confirmed",
 } as const;
 
 export type EventName = (typeof events)[keyof typeof events];
