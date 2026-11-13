@@ -2,6 +2,12 @@ import founderPhoto from "@/assets/images/daine-mawer.jpg";
 import { type Article, articlePath } from "@/content/articles";
 import { faqs, services } from "@/content/home";
 import {
+  type Market,
+  markets,
+  type ServicePrice,
+  servicePriceById,
+} from "@/content/pricing";
+import {
   type ServiceDetail,
   serviceDetailById,
   servicePath,
@@ -19,6 +25,35 @@ const ids = {
 };
 
 const southAfrica = { "@type": "Country", name: "South Africa" };
+
+const eligibleRegion: Record<Market, JsonLdNode | JsonLdNode[]> = {
+  za: { "@type": "Country", name: "South Africa" },
+  uk: [
+    { "@type": "Country", name: "United Kingdom" },
+    { "@type": "Place", name: "Europe" },
+  ],
+};
+
+/** One Offer per market and price option, with "from" prices as minPrice. */
+function offers(price: ServicePrice | undefined, url: string): JsonLdNode[] {
+  if (!price) return [];
+  return (Object.keys(markets) as Market[]).flatMap((market) =>
+    price[market].map((option) => ({
+      "@type": "Offer",
+      name: option.label,
+      url,
+      eligibleRegion: eligibleRegion[market],
+      priceSpecification: {
+        "@type": option.per ? "UnitPriceSpecification" : "PriceSpecification",
+        priceCurrency: markets[market].currency,
+        ...(option.from
+          ? { minPrice: option.amount }
+          : { price: option.amount }),
+        ...(option.per ? { unitText: option.per.toUpperCase() } : {}),
+      },
+    })),
+  );
+}
 
 function organization(): JsonLdNode {
   return {
@@ -221,6 +256,7 @@ export function servicePageStructuredData(
         image: absoluteUrl(detail.photo.src.src),
         provider: { "@id": ids.org },
         areaServed: southAfrica,
+        offers: offers(servicePriceById.get(detail.id), url),
         audience: {
           "@type": "BusinessAudience",
           name: "Small and medium-sized businesses with 10–250 staff",
@@ -309,6 +345,46 @@ export function articleStructuredData(article: Article, trail: Crumb[]) {
         isPartOf: { "@id": blogId },
       },
       founder(),
+    ],
+  };
+}
+
+/** The pricing page: page, breadcrumb, the priced services and its FAQs. */
+export function pricingPageStructuredData(
+  page: Omit<PageInput, "type">,
+  faqItems: { question: string; answer: string }[],
+) {
+  const url = absoluteUrl(page.path);
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      ...pageNodes({ ...page, type: "WebPage" }),
+      {
+        "@type": "OfferCatalog",
+        "@id": `${url}#catalog`,
+        name: `${site.name} price list`,
+        url,
+        itemListElement: services.map((service) => ({
+          "@type": "Service",
+          name: service.schemaName,
+          url: serviceUrl(service.id),
+          provider: { "@id": ids.org },
+          offers: offers(
+            servicePriceById.get(service.id),
+            serviceUrl(service.id),
+          ),
+        })),
+      },
+      {
+        "@type": "FAQPage",
+        "@id": `${url}#faq`,
+        isPartOf: { "@id": `${url}#webpage` },
+        mainEntity: faqItems.map((faq) => ({
+          "@type": "Question",
+          name: faq.question,
+          acceptedAnswer: { "@type": "Answer", text: faq.answer },
+        })),
+      },
     ],
   };
 }

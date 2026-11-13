@@ -1,5 +1,6 @@
 import { articlePath, publishedArticles } from "@/content/articles";
 import { faqs, services, shortVersion } from "@/content/home";
+import { formatPrice, markets, servicePriceById } from "@/content/pricing";
 import { serviceDetailById, servicePath } from "@/content/services";
 import { absoluteUrl, site } from "@/lib/site";
 
@@ -50,8 +51,26 @@ Every engagement is then scoped and quoted in writing at a fixed fee.
 - Location: ${facts.Where}
 - How: ${facts.How}
 - First step: ${facts["First step"]}
-- Pricing: fixed fee per engagement, quoted after the discovery call. No hourly billing.
+- Pricing: fixed fee per engagement, confirmed in writing after the discovery call. No hourly billing. Full price list: ${absoluteUrl("/pricing")}
 - Contact: ${site.email}
+
+## Prices
+Fixed fees. South African prices are in ZAR (Plaincraft is not VAT-registered, so these are final). UK and Europe prices are in GBP; EU clients are quoted in euros at equivalent rates. "From" prices depend on scope.
+${services
+  .map((service) => {
+    const price = servicePriceById.get(service.id);
+    if (!price) return null;
+    const list = (["za", "uk"] as const)
+      .map(
+        (market) =>
+          `${markets[market].label}: ${price[market].map((option) => `${option.label} ${formatPrice(market, option)}`).join("; ")}`,
+      )
+      .join(". ");
+    return `- ${service.name}: ${list}. ${price.note}`;
+  })
+  .filter(Boolean)
+  .join("\n")}
+- Founding clients: the first five clients in 2027 get 30% off their first engagement.
 
 ## FAQ
 ${faqs.map((faq) => `- ${faq.question} ${faq.answer}`).join("\n")}
@@ -68,6 +87,7 @@ ${publishedArticles
 - [Home](${absoluteUrl("/")}): services, process, FAQ and booking
 - [Home as Markdown](${absoluteUrl("/index.md")}): the full homepage in Markdown
 - [Services](${absoluteUrl("/services")}): all services, each with its own page
+- [Pricing](${absoluteUrl("/pricing")}): fixed fees in ZAR and GBP
 - [Blog](${absoluteUrl("/blog")}): practical guides on AI for small businesses
 - [About](${absoluteUrl("/about")}): who runs ${site.name} and how it works
 - [Contact](${absoluteUrl("/contact")}): booking link and email

@@ -57,18 +57,41 @@ describe("service pages", () => {
     }
   });
 
-  test("service pages show a fixed fee but no price figure", async () => {
+  test("service pages show their fixed fee in rands and pounds", async () => {
     for (const path of servicePaths) {
       const { html } = await page(path);
       assert.match(html, /One fixed fee\./, path);
       const text = html
         .replace(/<(script|style)[\s\S]*?<\/\1>/g, " ")
         .replace(/<[^>]+>/g, " ");
-      assert.doesNotMatch(
-        text,
-        /\bR\s?\d[\d\s,]*\d{3}\b/,
-        `${path} has no rand amount`,
+      assert.match(text, /From R\d{1,3}(,\d{3})+/, `${path} rand price`);
+      assert.match(text, /£\d{1,3}(,\d{3})+/, `${path} pound price`);
+    }
+  });
+
+  test("service pages carry priced offers in both currencies", async () => {
+    for (const path of servicePaths) {
+      const { html } = await page(path);
+      const currencies = [...html.matchAll(/"priceCurrency":"(ZAR|GBP)"/g)].map(
+        (match) => match[1],
       );
+      assert.ok(currencies.includes("ZAR"), `${path} ZAR offer`);
+      assert.ok(currencies.includes("GBP"), `${path} GBP offer`);
+    }
+  });
+
+  test("/pricing lists both markets with an offer catalog and FAQs", async () => {
+    const { status, html } = await page("/pricing");
+    assert.equal(status, 200);
+    assert.equal(html.match(/<h1[\s>]/g)?.length, 1, "exactly one h1");
+    assert.match(html, /<link rel="canonical" href="[^"]+\/pricing"/);
+    assert.match(html, /data-market="za"/);
+    assert.match(html, /data-market="uk"/);
+    assert.match(html, /R45,000/, "rand prices in the HTML");
+    assert.match(html, /£3,500/, "pound prices in the HTML");
+    const found = types(html);
+    for (const type of ["OfferCatalog", "FAQPage", "BreadcrumbList"]) {
+      assert.ok(found.includes(type), type);
     }
   });
 

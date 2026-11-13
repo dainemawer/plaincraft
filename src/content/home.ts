@@ -9,6 +9,7 @@ export const primaryNav: NavItem[] = [
   { label: "What AI does", href: "/#what-ai-does" },
   { label: "Services", href: "/#services" },
   { label: "How it works", href: "/#process" },
+  { label: "Pricing", href: "/pricing" },
   { label: "Why Plaincraft", href: "/#trust" },
   { label: "About", href: "/#about" },
   { label: "Blog", href: "/blog" },
@@ -178,6 +179,7 @@ export const footerServiceLinks = [
   { label: "AI training", href: "/services/ai-training" },
   { label: "Fractional Head of AI", href: "/services/fractional-head-of-ai" },
   { label: "All services", href: "/services" },
+  { label: "Pricing", href: "/pricing" },
 ] as const;
 
 export type AuditVerdict = "automate" | "assist" | "fix-first" | "not-for-ai";
@@ -323,7 +325,7 @@ export const faqs = [
   {
     question: "How much does AI consultancy cost?",
     answer:
-      "Every engagement is fixed-fee and quoted in writing after a free 30-minute call. There's no hourly billing and there are no surprise invoices.",
+      "Every engagement is fixed-fee and confirmed in writing after a free 30-minute call. An AI readiness audit starts at R45,000 for a team of up to 30, and a fractional Head of AI starts at R32,000 a month. There's no hourly billing and there are no surprise invoices. The pricing page lists every fee.",
   },
   {
     question: "Is my business too small for AI?",

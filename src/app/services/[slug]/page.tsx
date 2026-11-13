@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { MarketSwitch } from "@/components/pricing/market-switch";
 import { AuditSample } from "@/components/sections/audit-sample";
 import { BookCall } from "@/components/sections/book-call";
 import { Faq } from "@/components/sections/faq";
@@ -9,6 +10,13 @@ import { Breadcrumb } from "@/components/site/breadcrumb";
 import { ButtonLink } from "@/components/ui/button-link";
 import { Photo } from "@/components/ui/photo";
 import { services } from "@/content/home";
+import {
+  formatPrice,
+  type Market,
+  markets,
+  servicePriceById,
+  startingPrice,
+} from "@/content/pricing";
 import {
   type ServiceDetail,
   serviceDetailById,
@@ -79,6 +87,7 @@ function ServiceHero({
   detail: ServiceDetail;
   trail: Crumb[];
 }) {
+  const price = servicePriceById.get(detail.id);
   return (
     <section aria-labelledby="svc-title" className="relative overflow-hidden">
       <div
@@ -165,7 +174,13 @@ function ServiceHero({
           <div key={fact.label} className="border-t border-ink py-5 pr-6">
             <dt className="text-[13px] text-graphite">{fact.label}</dt>
             <dd className="mt-1.5 text-[22px] font-bold tracking-[-0.02em]">
-              {fact.value}
+              {fact.label === "Fee" && price
+                ? (Object.keys(markets) as Market[]).map((market) => (
+                    <span key={market} data-market={market}>
+                      {startingPrice(market, price)}
+                    </span>
+                  ))
+                : fact.value}
             </dd>
           </div>
         ))}
@@ -346,6 +361,7 @@ function Sample() {
 }
 
 function Price({ detail }: { detail: ServiceDetail }) {
+  const price = servicePriceById.get(detail.id);
   return (
     <section
       id="included"
@@ -360,10 +376,45 @@ function Price({ detail }: { detail: ServiceDetail }) {
           <h2 id="price-title" className="text-heading-sm font-bold">
             One fixed fee.
           </h2>
-          <p className="max-w-[400px] text-base/[1.55]">
-            Quoted in writing after a free call, based on the size of your team
-            and the scope we agree. No day rates, no surprise invoices.
-          </p>
+          {price ? (
+            <>
+              <MarketSwitch />
+              {(Object.keys(markets) as Market[]).map((market) => (
+                <dl
+                  key={market}
+                  data-market={market}
+                  className="flex flex-col border-t border-ink/25"
+                >
+                  {price[market].map((option) => (
+                    <div
+                      key={option.label}
+                      className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 border-b border-ink/25 py-3"
+                    >
+                      <dt className="text-base">{option.label}</dt>
+                      <dd className="text-[22px] font-bold tracking-[-0.02em]">
+                        {formatPrice(market, option)}
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+              ))}
+              <p className="max-w-[440px] text-base/[1.55]">
+                {price.note} Confirmed in writing after a free call. No day
+                rates, no surprise invoices.
+              </p>
+              <Link
+                href="/pricing"
+                className="self-start text-sm font-semibold underline underline-offset-4"
+              >
+                See all prices
+              </Link>
+            </>
+          ) : (
+            <p className="max-w-[400px] text-base/[1.55]">
+              Quoted in writing after a free call, based on the size of your
+              team and the scope we agree. No day rates, no surprise invoices.
+            </p>
+          )}
         </div>
         <div className="flex flex-col justify-center gap-5 bg-paper p-[clamp(28px,4vw,56px)]">
           <h3 className="sr-only">What's included</h3>

@@ -27,6 +27,12 @@ export const pages: Page[] = [
     changeFrequency: "monthly" as const,
     priority: 0.8,
   })),
+  {
+    path: "/pricing",
+    changeFrequency: "monthly",
+    priority: 0.8,
+    lastModified: "2026-11-13",
+  },
   { path: "/blog", changeFrequency: "weekly", priority: 0.8 },
   ...publishedArticles.map((article) => ({
     path: articlePath(article),

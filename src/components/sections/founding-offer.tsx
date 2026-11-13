@@ -42,9 +42,9 @@ export async function FoundingOffer() {
         </div>
         <div>
           <p className="text-lg/[1.55] text-pretty">
-            You get my full attention and founding-client terms. In return, once
-            we've delivered results you're happy with, I'll ask to write the
-            work up as a case study. Only with your sign-off.
+            You get my full attention and 30% off your first engagement. In
+            return, once we've delivered results you're happy with, I'll ask to
+            write the work up as a case study. Only with your sign-off.
           </p>
           <ApplyDialog waitlist={full} />
         </div>

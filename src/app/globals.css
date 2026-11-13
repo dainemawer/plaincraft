@@ -132,6 +132,12 @@
   }
 }
 
+/* Prices: show the market chosen in <MarketSwitch />, anywhere on the page. */
+body:has(#market-za:checked) [data-market="uk"],
+body:has(#market-uk:checked) [data-market="za"] {
+  display: none;
+}
+
 /*
  * Motion. Everything is opt-in behind prefers-reduced-motion and works
  * without JavaScript, except scroll reveals, which are enhanced by
