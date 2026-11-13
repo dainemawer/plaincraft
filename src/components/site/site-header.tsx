@@ -8,7 +8,7 @@ import { MenuButton, MenuPanel } from "./menu-context";
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-50 border-b border-ink/10 bg-paper/86 backdrop-blur-[14px]">
+    <header className="sticky top-0 z-50 border-b border-ink/10 bg-paper/97">
       <nav
         aria-label="Primary"
         className="shell flex items-center justify-between gap-6 py-3.5"

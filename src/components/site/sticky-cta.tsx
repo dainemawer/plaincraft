@@ -25,7 +25,7 @@ export function StickyCta({ href }: { href: string }) {
   return (
     <aside
       aria-label="Book a call"
-      className="fixed inset-x-0 bottom-0 z-60 flex items-center gap-3 border-t border-ink bg-paper/94 px-4 pt-3 pb-[calc(12px+env(safe-area-inset-bottom))] backdrop-blur-md nav:hidden"
+      className="fixed inset-x-0 bottom-0 z-60 flex items-center gap-3 border-t border-ink bg-paper px-4 pt-3 pb-[calc(12px+env(safe-area-inset-bottom))] nav:hidden"
     >
       <p className="flex-1 text-sm/[1.35] font-medium">
         Free 30-min call. No jargon.
