@@ -1,4 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server";
+import { parseCode } from "@/content/scorecard";
 import { notFoundMarkdown } from "@/lib/markdown";
 import { knownPaths } from "@/lib/routes";
 
@@ -15,12 +16,15 @@ export function proxy(request: NextRequest) {
     accept.includes("text/markdown") && !accept.includes("text/html");
   const { pathname } = request.nextUrl;
 
-  const known = knownPaths.has(pathname);
+  const scorecard = /^\/scorecard\/result\/([^/]+)$/.exec(pathname);
+  const known = scorecard
+    ? parseCode(scorecard[1]) !== null
+    : knownPaths.has(pathname);
 
   if (!wantsMarkdown) {
     // Dynamic segments stream their shell before notFound() can set the
     // status, so reject unknown slugs here to return a real 404.
-    if (!known && /^\/(services|blog)\//.test(pathname)) {
+    if (!known && (scorecard || /^\/(services|blog)\//.test(pathname))) {
       return NextResponse.rewrite(new URL("/__not-found", request.url));
     }
     return NextResponse.next();

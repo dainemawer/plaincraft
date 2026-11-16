@@ -46,6 +46,7 @@ export const pages: Page[] = [
     changeFrequency: "weekly" as const,
     priority: 0.5,
   })),
+  { path: "/scorecard", changeFrequency: "monthly", priority: 0.8 },
   // Indexed once the Tally form is live (see src/content/survey.ts).
   ...(survey.tallyUrl
     ? [
