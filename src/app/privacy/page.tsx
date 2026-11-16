@@ -44,8 +44,8 @@ export default function PrivacyPage() {
         </li>
         <li>
           <strong>
-            Your email address, if you ask us to email you a scorecard report
-            or a free resource
+            Your email address, if you ask us to email you a scorecard report or
+            a free resource
           </strong>
           . We use it only to send what you asked for. It is not added to the
           newsletter unless you tick that box separately and then confirm.
@@ -100,10 +100,10 @@ export default function PrivacyPage() {
         analytics), Resend (sending email, including replies to the
         founding-client application form and holding the list of applicants),
         ImprovMX (email forwarding), Cal.com (call booking) and Tally (survey
-        forms, stored in the EU). Some of these
-        providers store data outside South Africa. Where that happens, we rely
-        on providers bound by data protection laws or agreements that give a
-        level of protection comparable to POPIA.
+        forms, stored in the EU). Some of these providers store data outside
+        South Africa. Where that happens, we rely on providers bound by data
+        protection laws or agreements that give a level of protection comparable
+        to POPIA.
       </p>
 
       <h2>Client data</h2>

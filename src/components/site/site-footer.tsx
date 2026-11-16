@@ -6,6 +6,16 @@ import { footerServiceLinks } from "@/content/home";
 import { events, track } from "@/lib/analytics";
 import { site } from "@/lib/site";
 
+const freeLinks = [
+  { label: "AI readiness scorecard", href: "/scorecard" },
+  { label: "POPIA + AI checklist", href: "/resources/popia-ai-checklist" },
+  {
+    label: "AI usage policy template",
+    href: "/resources/ai-usage-policy-template",
+  },
+  { label: "Partner programme", href: "/partners" },
+];
+
 async function getCopyrightYear() {
   "use cache";
   cacheLife("max");
@@ -16,7 +26,7 @@ export async function SiteFooter() {
   const year = await getCopyrightYear();
 
   return (
-    <footer className="border-t border-paper/15 bg-ink text-mist">
+    <footer className="border-t border-paper/15 bg-ink text-mist print:hidden">
       <div className="shell grid grid-cols-[repeat(auto-fit,minmax(min(100%,200px),1fr))] gap-8 pt-12 pb-8">
         <div className="flex flex-col gap-3.5">
           <Logo tone="dark" />
@@ -29,6 +39,21 @@ export async function SiteFooter() {
           </p>
           <ul className="flex flex-col gap-2.5">
             {footerServiceLinks.map((link) => (
+              <li key={link.href}>
+                <Link href={link.href} className="text-paper no-underline">
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <nav aria-labelledby="footer-free" className="text-sm">
+          <p id="footer-free" className="mb-2.5 text-xs text-stone">
+            Free tools
+          </p>
+          <ul className="flex flex-col gap-2.5">
+            {freeLinks.map((link) => (
               <li key={link.href}>
                 <Link href={link.href} className="text-paper no-underline">
                   {link.label}
