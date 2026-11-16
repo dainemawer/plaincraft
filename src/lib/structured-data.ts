@@ -2,6 +2,7 @@ import founderPhoto from "@/assets/images/daine-mawer.jpg";
 import { type Article, articlePath } from "@/content/articles";
 import { faqs, services } from "@/content/home";
 import {
+  activeMarkets,
   type Market,
   markets,
   type ServicePrice,
@@ -37,7 +38,7 @@ const eligibleRegion: Record<Market, JsonLdNode | JsonLdNode[]> = {
 /** One Offer per market and price option, with "from" prices as minPrice. */
 function offers(price: ServicePrice | undefined, url: string): JsonLdNode[] {
   if (!price) return [];
-  return (Object.keys(markets) as Market[]).flatMap((market) =>
+  return activeMarkets.flatMap((market) =>
     price[market].map((option) => ({
       "@type": "Offer",
       name: option.label,
@@ -54,6 +55,8 @@ function offers(price: ServicePrice | undefined, url: string): JsonLdNode[] {
     })),
   );
 }
+
+const orgProfiles = Object.values(site.profiles).filter(Boolean);
 
 function organization(): JsonLdNode {
   return {
@@ -90,6 +93,7 @@ function organization(): JsonLdNode {
       "AI training",
     ],
     founder: { "@id": ids.founder },
+    ...(orgProfiles.length > 0 ? { sameAs: orgProfiles } : {}),
     hasOfferCatalog: {
       "@type": "OfferCatalog",
       name: "AI consultancy services",
@@ -124,7 +128,12 @@ function founder(): JsonLdNode {
       "Web performance",
       "Product engineering",
     ],
-    sameAs: [site.linkedInUrl, site.founder.url],
+    sameAs: [
+      site.linkedInUrl,
+      site.founder.url,
+      site.founder.github,
+      site.founder.bluesky,
+    ],
   };
 }
 

@@ -1,16 +1,18 @@
-import { type Market, markets } from "@/content/pricing";
+import { activeMarkets, markets } from "@/content/pricing";
 
 /**
  * Radio switch between the South African and UK/EU price lists. Mark each
  * market's content with data-market="za" or data-market="uk"; globals.css
  * hides the one that isn't selected, with no JavaScript. Use once per page.
+ * Renders nothing while only one market is active.
  */
 export function MarketSwitch({ className = "" }: { className?: string }) {
+  if (activeMarkets.length < 2) return null;
   return (
     <fieldset className={className}>
       <legend className="sr-only">Show prices for</legend>
       <div className="inline-flex border border-ink bg-paper">
-        {(Object.keys(markets) as Market[]).map((market) => (
+        {activeMarkets.map((market) => (
           <label key={market} className="cursor-pointer">
             <input
               type="radio"

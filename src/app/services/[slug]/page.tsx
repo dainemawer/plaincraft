@@ -11,9 +11,8 @@ import { ButtonLink } from "@/components/ui/button-link";
 import { Photo } from "@/components/ui/photo";
 import { services } from "@/content/home";
 import {
+  activeMarkets,
   formatPrice,
-  type Market,
-  markets,
   servicePriceById,
   startingPrice,
 } from "@/content/pricing";
@@ -175,7 +174,7 @@ function ServiceHero({
             <dt className="text-[13px] text-graphite">{fact.label}</dt>
             <dd className="mt-1.5 text-[22px] font-bold tracking-[-0.02em]">
               {fact.label === "Fee" && price
-                ? (Object.keys(markets) as Market[]).map((market) => (
+                ? activeMarkets.map((market) => (
                     <span key={market} data-market={market}>
                       {startingPrice(market, price)}
                     </span>
@@ -379,7 +378,7 @@ function Price({ detail }: { detail: ServiceDetail }) {
           {price ? (
             <>
               <MarketSwitch />
-              {(Object.keys(markets) as Market[]).map((market) => (
+              {activeMarkets.map((market) => (
                 <dl
                   key={market}
                   data-market={market}

@@ -33,6 +33,13 @@ export const markets: Record<
   uk: { label: "UK & Europe", currency: "GBP", region: "UK & Europe" },
 };
 
+/**
+ * Markets shown on the site. UK/EU pricing is archived (hidden) while
+ * Plaincraft focuses on South Africa; its prices stay below so adding "uk"
+ * back here restores the switch, the offers and the FAQ.
+ */
+export const activeMarkets: Market[] = ["za"];
+
 export const servicePrices: ServicePrice[] = [
   {
     id: "ai-readiness-audit",
@@ -144,30 +151,37 @@ export const startingPrice = (market: Market, price: ServicePrice) => {
   return `From ${formatAmount(market, lowest.amount)}${per}`;
 };
 
-export const pricingFaqs = [
-  {
-    question: "Why are UK and South African prices different?",
-    answer:
-      "Each price list is set for its own market, not converted at the exchange rate. UK and European clients work with me remotely, during overlapping hours. Clients in the EU are quoted in euros at equivalent rates.",
-  },
-  {
-    question: "Do the prices include VAT?",
-    answer:
-      "Plaincraft is not VAT-registered, so the price shown is the price you pay. A quote agreed in writing stays as agreed.",
-  },
-  {
-    question: "What if the work turns out bigger than quoted?",
-    answer:
-      "The fee is fixed for the scope we agree in writing. If you want to add something, I quote it separately before I start. You never get a bill you didn't agree to.",
-  },
-  {
-    question: "How does payment work?",
-    answer:
-      "Projects are paid half upfront and half on delivery. Retainers are billed monthly in advance, with a three-month minimum and then month to month.",
-  },
-  {
-    question: "What is the founding-client offer?",
-    answer:
-      "The first five clients in 2027 get 30% off their first engagement. In return, once you're happy with the results, I'll ask to write the work up as a case study, only with your sign-off.",
-  },
-];
+const allPricingFaqs: { market?: Market; question: string; answer: string }[] =
+  [
+    {
+      market: "uk",
+      question: "Why are UK and South African prices different?",
+      answer:
+        "Each price list is set for its own market, not converted at the exchange rate. UK and European clients work with me remotely, during overlapping hours. Clients in the EU are quoted in euros at equivalent rates.",
+    },
+    {
+      question: "Do the prices include VAT?",
+      answer:
+        "Plaincraft is not VAT-registered, so the price shown is the price you pay. A quote agreed in writing stays as agreed.",
+    },
+    {
+      question: "What if the work turns out bigger than quoted?",
+      answer:
+        "The fee is fixed for the scope we agree in writing. If you want to add something, I quote it separately before I start. You never get a bill you didn't agree to.",
+    },
+    {
+      question: "How does payment work?",
+      answer:
+        "Projects are paid half upfront and half on delivery. Retainers are billed monthly in advance, with a three-month minimum and then month to month.",
+    },
+    {
+      question: "What is the founding-client offer?",
+      answer:
+        "The first five clients in 2027 get 30% off their first engagement. In return, once you're happy with the results, I'll ask to write the work up as a case study, only with your sign-off.",
+    },
+  ];
+
+/** Pricing FAQs, without the ones about a hidden market. */
+export const pricingFaqs = allPricingFaqs
+  .filter((faq) => !faq.market || activeMarkets.includes(faq.market))
+  .map(({ question, answer }) => ({ question, answer }));

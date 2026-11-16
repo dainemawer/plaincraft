@@ -6,6 +6,7 @@ import { JsonLd } from "@/components/seo/json-ld";
 import { Breadcrumb } from "@/components/site/breadcrumb";
 import { serviceStages } from "@/content/home";
 import {
+  activeMarkets,
   formatPrice,
   type Market,
   markets,
@@ -19,7 +20,7 @@ import { type Crumb, pricingPageStructuredData } from "@/lib/structured-data";
 const path = "/pricing";
 const title = "AI consulting prices for SMEs";
 const description =
-  "Fixed fees for every Plaincraft service, in rands for South African businesses and pounds for the UK and Europe. An AI readiness audit starts at R45,000.";
+  "Fixed fees for every Plaincraft service, in rands, for South African businesses. An AI readiness audit starts at R45,000.";
 
 export const metadata = pageMetadata({
   title: "AI Consultant Pricing in South Africa · Fixed fees",
@@ -118,7 +119,6 @@ const marketNotes: Record<Market, string> = {
  * :has() support both lists show.
  */
 function PriceLists() {
-  const list = Object.keys(markets) as Market[];
   return (
     <section
       aria-labelledby="prices-title"
@@ -131,7 +131,7 @@ function PriceLists() {
           </h2>
           <MarketSwitch />
         </div>
-        {list.map((market) => (
+        {activeMarkets.map((market) => (
           <PriceList key={market} market={market} />
         ))}
       </div>
