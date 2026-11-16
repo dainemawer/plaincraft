@@ -114,6 +114,13 @@ describe("service pages", () => {
     }
   });
 
+  test("the survey stays hidden until its form is live", async () => {
+    const { survey } = await import("../src/content/survey.ts");
+    if (survey.tallyUrl) return;
+    assert.equal((await page("/survey")).status, 404);
+    assert.doesNotMatch((await page("/sitemap.xml")).html, /\/survey</);
+  });
+
   test("unknown service slugs 404", async () => {
     assert.equal((await page("/services/not-a-service")).status, 404);
   });

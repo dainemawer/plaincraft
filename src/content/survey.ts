@@ -37,8 +37,8 @@ export const survey = {
   minutes: 4,
   /**
    * The Tally form's share link, e.g. "https://tally.so/r/abc123". Leave
-   * empty until the form exists: /survey then shows a "coming soon" note
-   * and stays out of the sitemap.
+   * empty to keep the survey hidden: /survey then returns 404 and stays out
+   * of the sitemap. Setting it publishes the page.
    */
   tallyUrl: "",
   /** Groups smaller than this are not reported on their own. */

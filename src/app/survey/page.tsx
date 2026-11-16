@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { ProsePage } from "@/components/site/prose-page";
 import { ButtonLink } from "@/components/ui/button-link";
 import { survey, surveyQuestions } from "@/content/survey";
@@ -32,6 +33,9 @@ const embedUrl = (shareUrl: string) =>
   `${shareUrl.replace("/r/", "/embed/")}?alignLeft=1&hideTitle=1&transparentBackground=1`;
 
 export default function SurveyPage() {
+  // Hidden until the Tally form exists (see src/content/survey.ts).
+  if (!live) notFound();
+
   return (
     <ProsePage
       path={path}

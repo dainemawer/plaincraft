@@ -56,7 +56,8 @@ export const pages: Page[] = [
     priority: 0.7,
     lastModified: resource.updated,
   })),
-  // Indexed once the Tally form is live (see src/content/survey.ts).
+  // Only exists once the Tally form is live (see src/content/survey.ts).
+  // Until then /survey is hidden and returns 404.
   ...(survey.tallyUrl
     ? [
         {
@@ -80,7 +81,6 @@ export const knownPaths = new Set<string>([
   // Topic pages exist (noindex) before they have enough articles for the sitemap.
   ...activeCategories.map(categoryPath),
   ...generatedRoutes,
-  "/survey",
   "/scorecard/result",
   ...resourceList.map((resource) => `${resource.path}/download`),
   // Newsletter confirmation steps: real pages, but noindex and not in the sitemap.
