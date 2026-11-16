@@ -1,23 +1,29 @@
 <ShortAnswer>
-AI can **read supplier invoices**, **pull out the details** (supplier, date, amounts, VAT, line items) and **prepare them for your accounting system**. A person reviews the exceptions instead of re-typing every invoice. Most small businesses can start with tools they already have.
+AI can read a small business's supplier invoices, **pull out the details** (supplier, date, amounts, VAT, line items) and **prepare them for your accounting system**, so a person reviews the exceptions instead of re-typing every invoice. Most South African businesses can start with a feature their accounting software already has.
 </ShortAnswer>
 
 ## The problem with manual capture
 
 Someone opens each PDF or photo, reads it and types the same details into the accounts. It's slow, and the mistakes are small and easy to miss: a transposed number, the wrong VAT amount, a duplicate payment.
 
+Those small mistakes add up in a South African business in particular ways. A VAT amount captured wrongly affects your VAT201 return, and claiming input VAT needs a valid tax invoice with the right details, which someone has to check. A duplicate payment to a supplier is real money that's often hard to get back. And the person doing the capture is usually someone whose time is better spent chasing debtors or talking to suppliers.
+
 ## How it works
 
 <Schedule>
-  <When label="Collect">Invoices arrive in one inbox or folder, not scattered across people.</When>
+  <When label="Collect">Invoices arrive in one inbox or folder, not scattered across people's email and WhatsApp.</When>
   <When label="Read">AI extracts supplier, invoice number, date, totals, VAT and line items.</When>
-  <When label="Check">Rules flag anything unusual: new suppliers, amounts above a limit, possible duplicates.</When>
+  <When label="Check">Rules flag anything unusual: new suppliers, amounts above a limit, possible duplicates, missing VAT numbers.</When>
   <When label="Post">Clean invoices are prepared for your accounting system. Flagged ones go to a person.</When>
 </Schedule>
 
-<InlineCta>
-Still re-typing supplier invoices? I'll tell you in 30 minutes whether it's worth automating.
-</InlineCta>
+The "read" step is what AI has made cheap and reliable. Older tools needed a template per supplier and broke when a supplier changed its invoice layout. Current tools read most invoices without setup, including scanned paper and phone photos, though very poor photos and handwritten slips still need a person.
+
+## Which tools?
+
+Start with what you already pay for. Xero and Sage both include ways to capture bills from email or uploads, and dedicated capture tools such as Dext and AutoEntry connect to both. Many South African practices already use one of these for their clients, so ask your accountant or bookkeeper what they support before you buy anything.
+
+A custom build makes sense when your invoices need extra handling the standard tools don't do well, such as matching each invoice to a purchase order and a delivery note, or splitting costs across jobs or properties.
 
 ## What to check first
 
@@ -25,6 +31,42 @@ Still re-typing supplier invoices? I'll tell you in 30 minutes whether it's wort
   <li>How many invoices a month? Below a few dozen, it may not be worth it.</li>
   <li>Does your accounting software already include invoice capture? Many do.</li>
   <li>Who approves payments today, and does that stay the same?</li>
+  <li>Where do invoices arrive now? If the answer is "everywhere", fix that first.</li>
 </Checklist>
 
-If the numbers add up, an [automation build](/services/ai-automation) sets this up on your existing tools, documented so your team can run it.
+<InlineCta>
+Still re-typing supplier invoices? I'll tell you in 30 minutes whether it's worth automating.
+</InlineCta>
+
+## A worked example
+
+Take a made-up construction subcontractor in Pretoria with 35 staff and around 400 supplier invoices a month: building materials, equipment hire, fuel and sub-trades. One bookkeeper captures them all into Sage, at about four minutes each, which comes to roughly 27 hours a month. Invoices arrive by email, by WhatsApp from site managers, and as paper slips in a box on Fridays.
+
+The first change involves no AI at all. Every supplier is asked to email invoices to one address, and site managers photograph paper slips and send them to the same address. That alone saves the bookkeeper hours of chasing.
+
+The capture tool then reads each invoice, matches the supplier, and prepares the bill in Sage. Rules flag anything new or odd: a supplier the business hasn't paid before, an invoice over R50,000, a VAT number that doesn't match the supplier's previous invoices, or an invoice number that's already been captured.
+
+In a setup like this, the bookkeeper might check a list of clean invoices in bulk and look properly at the 30 or 40 flagged ones, which could bring capture time down to around 8 hours a month. The owner still approves payments the same way as before. The month-end close gets easier, and the duplicate-payment check runs on every invoice instead of only when someone remembers.
+
+## Getting suppliers on board
+
+The step people underestimate is getting invoices into one place. Most suppliers are happy to email invoices to a dedicated address if you ask once, clearly. A short email to every regular supplier, with the new address and the date from which you'll use it, does most of the work. Add the address to your purchase orders and to the bottom of your remittance advices, so new suppliers see it too.
+
+For staff, the rule is simpler: any invoice or slip goes to the same address the day you receive it, by email or by photo. Site and branch managers are the usual gap, so make it easy for them. A saved contact on their phone is often enough.
+
+Expect a month before nearly everything arrives in one place. Keep a short list of the suppliers who still post paper or send to someone's personal inbox, and follow them up one by one.
+
+## What can go wrong
+
+<Pitfalls>
+  <Pitfall title="Trusting it blindly.">Extraction is very good and still not perfect. Spot-check clean invoices every week, especially VAT amounts.</Pitfall>
+  <Pitfall title="Skipping the inbox step.">If invoices still arrive in five places, the tool only sees some of them.</Pitfall>
+  <Pitfall title="Changing approvals by accident.">Make sure automating capture doesn't quietly automate payment. Approval stays with the person who approves today.</Pitfall>
+  <Pitfall title="Forgetting POPIA.">Invoices from sole proprietors contain personal information. Use a tool with a proper data agreement, and check where it stores data.</Pitfall>
+</Pitfalls>
+
+## Is it worth it?
+
+Do the sum before you start: invoices a month, times minutes per invoice, times the hourly cost of the person capturing them. If the answer is a few hours a month, a simple shared inbox may be all you need. If it's 20 hours or more, capture is very likely worth setting up, and the tool cost is usually small next to the time saved.
+
+If the numbers add up, an [automation build](/services/ai-automation) sets this up on your existing tools, documented so your team can run it. If you'd like a broader view first, the free [AI readiness scorecard](/scorecard) shows whether your processes and data are ready, and [what AI can do for a 20-person business](/blog/what-ai-can-do-for-a-small-business) covers where invoices fit among other first projects.

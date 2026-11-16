@@ -353,6 +353,20 @@ export function articleStructuredData(article: Article, trail: Crumb[]) {
         publisher: { "@id": ids.org },
         isPartOf: { "@id": blogId },
       },
+      ...(article.faqs?.length
+        ? [
+            {
+              "@type": "FAQPage",
+              "@id": `${url}#faq`,
+              isPartOf: { "@id": `${url}#webpage` },
+              mainEntity: article.faqs.map((faq) => ({
+                "@type": "Question",
+                name: faq.question,
+                acceptedAnswer: { "@type": "Answer", text: faq.answer },
+              })),
+            },
+          ]
+        : []),
       founder(),
     ],
   };

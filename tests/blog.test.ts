@@ -86,6 +86,43 @@ describe("articles", () => {
     });
   }
 
+  test("publish FAQs that match the visible copy and link to a service", async () => {
+    const decode = (text: string) =>
+      text
+        .replace(/&#x27;|&#39;/g, "'")
+        .replace(/&quot;/g, '"')
+        .replace(/&amp;/g, "&");
+    for (const path of published) {
+      const { html } = await page(path);
+      const faq = nodes(html).find((node) => node["@type"] === "FAQPage");
+      assert.ok(faq, `${path} has FAQPage data`);
+      assert.ok(faq.mainEntity.length >= 3, `${path} has at least 3 FAQs`);
+      const visible = decode(html.replace(/<!-- -->/g, ""));
+      for (const question of faq.mainEntity) {
+        assert.ok(
+          visible.includes(`>${question.name}<`),
+          `${path}: "${question.name}" is visible`,
+        );
+        assert.ok(
+          visible.includes(question.acceptedAnswer.text),
+          `${path}: answer to "${question.name}" is visible`,
+        );
+      }
+      const posting = nodes(html).find(
+        (node) => node["@type"] === "BlogPosting",
+      );
+      assert.ok(
+        posting.dateModified >= posting.datePublished,
+        `${path} dateModified`,
+      );
+      assert.match(
+        html,
+        /href="\/services\/[a-z-]+"/,
+        `${path} links to a service`,
+      );
+    }
+  });
+
   test("are in the sitemap and llms.txt", async () => {
     const { html: xml } = await page("/sitemap.xml");
     const { html: llms } = await page("/llms.txt");

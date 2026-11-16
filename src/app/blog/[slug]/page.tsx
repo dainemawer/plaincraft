@@ -70,7 +70,11 @@ export default async function ArticlePage({
   if (!article || !load) notFound();
 
   const { default: Body } = await load();
-  const toc = articleToc(articleSource(article.slug));
+  const faqs = article.faqs ?? [];
+  const toc = [
+    ...articleToc(articleSource(article.slug)),
+    ...(faqs.length > 0 ? [{ id: "questions", label: "Questions" }] : []),
+  ];
   const header = article.header ?? article.image;
   const caption = article.header?.caption;
   const related = relatedTo(article);
@@ -127,6 +131,14 @@ export default async function ArticlePage({
               <time dateTime={article.date}>
                 {formatArticleDate(article.date)}
               </time>
+              {article.updated && article.updated !== article.date ? (
+                <span>
+                  Updated{" "}
+                  <time dateTime={article.updated}>
+                    {formatArticleDate(article.updated)}
+                  </time>
+                </span>
+              ) : null}
               <span>{article.readMinutes} min read</span>
             </p>
           </div>
@@ -186,6 +198,32 @@ export default async function ArticlePage({
 
           <div className="min-w-0 max-w-[720px] text-[19px]/[1.65]">
             <Body />
+
+            {faqs.length > 0 ? (
+              <section aria-labelledby="questions" className="mt-14">
+                <h2
+                  id="questions"
+                  className="mb-5 text-[clamp(1.75rem,2.6vw,2.25rem)] leading-[1.1] font-bold tracking-[-0.035em]"
+                >
+                  Questions
+                </h2>
+                <dl className="border-t border-ink">
+                  {faqs.map((faq) => (
+                    <div
+                      key={faq.question}
+                      className="border-b border-ink/20 py-6"
+                    >
+                      <dt className="text-[22px] leading-tight font-bold tracking-[-0.02em]">
+                        {faq.question}
+                      </dt>
+                      <dd className="mt-2.5 text-[17px]/[1.6] text-graphite">
+                        {faq.answer}
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+              </section>
+            ) : null}
 
             <div className="mt-14 flex flex-wrap gap-2 border-t border-ink pt-6">
               <span className="mr-2 py-2 text-[13px] text-graphite">
