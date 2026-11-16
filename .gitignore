@@ -42,3 +42,7 @@ next-env.d.ts
 
 # keep the documented example env file
 !.env.example
+
+# Survey exports and reports (contain raw responses)
+survey-report/
+*.tally-export.csv

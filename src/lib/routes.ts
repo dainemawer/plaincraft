@@ -7,6 +7,7 @@ import {
   publishedArticles,
 } from "@/content/articles";
 import { serviceDetails, servicePath } from "@/content/services";
+import { survey } from "@/content/survey";
 
 type Page = {
   path: `/${string}`;
@@ -45,6 +46,16 @@ export const pages: Page[] = [
     changeFrequency: "weekly" as const,
     priority: 0.5,
   })),
+  // Indexed once the Tally form is live (see src/content/survey.ts).
+  ...(survey.tallyUrl
+    ? [
+        {
+          path: "/survey" as const,
+          changeFrequency: "weekly" as const,
+          priority: 0.6,
+        },
+      ]
+    : []),
   { path: "/about", changeFrequency: "monthly", priority: 0.7 },
   { path: "/contact", changeFrequency: "yearly", priority: 0.7 },
   { path: "/privacy", changeFrequency: "yearly", priority: 0.3 },
@@ -59,6 +70,7 @@ export const knownPaths = new Set<string>([
   // Topic pages exist (noindex) before they have enough articles for the sitemap.
   ...activeCategories.map(categoryPath),
   ...generatedRoutes,
+  "/survey",
   // Newsletter confirmation steps: real pages, but noindex and not in the sitemap.
   "/newsletter/confirmed",
   "/newsletter/link-expired",

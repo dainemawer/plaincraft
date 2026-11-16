@@ -14,6 +14,14 @@ export const events = {
   explore: "Explore click",
   newsletterSignup: "Newsletter signup",
   newsletterConfirmed: "Newsletter confirmed",
+  surveyOpen: "Survey open",
+  scorecardStart: "Scorecard start",
+  scorecardStep: "Scorecard step",
+  scorecardResult: "Scorecard result",
+  scorecardEmail: "Scorecard email",
+  resourceDownload: "Resource download",
+  resourceEmail: "Resource email",
+  partnerEnquiry: "Partner enquiry",
 } as const;
 
 export type EventName = (typeof events)[keyof typeof events];
