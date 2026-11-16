@@ -27,11 +27,22 @@ export const site = {
   /** Booking link used by every "Book a call" button. */
   calendarUrl: "https://cal.com/plaincraft/freeaidiscoverycall",
   linkedInUrl: "https://www.linkedin.com/in/dainemawer/",
+  /**
+   * Plaincraft's own profiles, used as the Organization's sameAs. Fill each
+   * in once the profile exists; empty values are left out of the schema.
+   */
+  profiles: {
+    linkedInCompany: "",
+    googleBusiness: "",
+    clutch: "",
+  },
   founder: {
     name: "Daine Mawer",
     jobTitle: "Founder & Principal Consultant",
     url: "https://dainemawer.com",
     location: "Cape Town, South Africa",
+    github: "https://github.com/dainemawer",
+    bluesky: "https://bsky.app/profile/dainemawer.com",
   },
   showFoundingOffer: true,
   /** Founding-client places for 2027; applicants are counted against this. */

@@ -41,7 +41,8 @@ export function pageMetadata({
     description,
     alternates: {
       canonical: path,
-      languages: { [site.locale]: path },
+      // South Africa only (YIELD-139), so the en-ZA page is also the default.
+      languages: { [site.locale]: path, "x-default": path },
       ...(markdown ? { types: { "text/markdown": markdown } } : {}),
     },
     openGraph: {
