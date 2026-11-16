@@ -13,7 +13,7 @@ export default function PrivacyPage() {
       path="/privacy"
       title={title}
       description={description}
-      updated="2026-11-12"
+      updated="2026-11-16"
     >
       <h2>Who we are</h2>
       <p>
@@ -43,6 +43,24 @@ export default function PrivacyPage() {
           unsubscribe in any issue.
         </li>
         <li>
+          <strong>
+            Your email address, if you ask us to email you a scorecard report
+            or a free resource
+          </strong>
+          . We use it only to send what you asked for. It is not added to the
+          newsletter unless you tick that box separately and then confirm.
+          Scorecard answers are not stored: they live only in the link to your
+          result page.
+        </li>
+        <li>
+          <strong>Survey answers</strong>, if you take part in one of our
+          surveys. Surveys are anonymous by default. We publish only totals,
+          never show groups smaller than five responses, and delete individual
+          answers 12 months after the results are published. An email address
+          left at the end of a survey is used only to send you the results,
+          unless you also ask for the newsletter.
+        </li>
+        <li>
           <strong>Anonymous usage data</strong>. We use Vercel Web Analytics and
           Speed Insights to understand page views, which buttons get clicked and
           how the site performs. These tools do not use cookies and do not
@@ -62,6 +80,10 @@ export default function PrivacyPage() {
           spot opens up when you have joined the waitlist. Applicants are kept
           on a private list so we can count the spots taken.
         </li>
+        <li>
+          To send a report or resource you asked for, and to publish anonymous
+          survey results.
+        </li>
         <li>To prepare and deliver an engagement you have agreed to.</li>
         <li>To keep this website secure and working well.</li>
       </ul>
@@ -77,7 +99,8 @@ export default function PrivacyPage() {
         operate, and only as far as they need it: Vercel (website hosting and
         analytics), Resend (sending email, including replies to the
         founding-client application form and holding the list of applicants),
-        ImprovMX (email forwarding) and Cal.com (call booking). Some of these
+        ImprovMX (email forwarding), Cal.com (call booking) and Tally (survey
+        forms, stored in the EU). Some of these
         providers store data outside South Africa. Where that happens, we rely
         on providers bound by data protection laws or agreements that give a
         level of protection comparable to POPIA.

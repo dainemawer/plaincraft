@@ -8,6 +8,7 @@ import {
   scoreResult,
 } from "@/content/scorecard";
 import { events } from "@/lib/analytics";
+import type { EmailCopyState } from "@/lib/email-copy";
 import {
   fromAddress,
   mailerReady,
@@ -16,12 +17,6 @@ import {
 import { isNewsletterSpam, parseEmail } from "@/lib/newsletter";
 import { sendEmail } from "@/lib/resend";
 import { absoluteUrl, site } from "@/lib/site";
-
-export type ReportState =
-  | { status: "idle" }
-  | { status: "invalid"; email: string; reason: "email" | "consent" }
-  | { status: "failed"; email: string }
-  | { status: "sent"; newsletter: boolean };
 
 function reportText(result: ScorecardResult) {
   const lines = [
@@ -79,9 +74,9 @@ function reportText(result: ScorecardResult) {
 }
 
 export async function emailReport(
-  _previous: ReportState,
+  _previous: EmailCopyState,
   form: FormData,
-): Promise<ReportState> {
+): Promise<EmailCopyState> {
   if (isNewsletterSpam(form)) return { status: "sent", newsletter: false };
 
   const raw = form.get("email");

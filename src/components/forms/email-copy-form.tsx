@@ -2,24 +2,39 @@
 
 import Link from "next/link";
 import { useActionState, useId } from "react";
-import { emailReport, type ReportState } from "@/app/actions/scorecard";
+import type { EmailCopyState } from "@/lib/email-copy";
 import { NEWSLETTER_HONEYPOT } from "@/lib/newsletter-fields";
 import { site } from "@/lib/site";
 
-const initialState: ReportState = { status: "idle" };
+const initialState: EmailCopyState = { status: "idle" };
 
-/** Emails the full scorecard report, with an optional newsletter opt-in. */
-export function EmailReportForm({ code }: { code: string }) {
-  const [state, formAction, pending] = useActionState(
-    emailReport,
-    initialState,
-  );
+/**
+ * Emails a copy of something (a scorecard report, a checklist) to the
+ * visitor, with explicit consent and an optional newsletter opt-in.
+ */
+export function EmailCopyForm({
+  action,
+  hidden,
+  submitLabel,
+  consentLabel,
+  sentLabel,
+}: {
+  action: (previous: EmailCopyState, form: FormData) => Promise<EmailCopyState>;
+  /** Hidden fields the action needs, e.g. { code: "2130…" }. */
+  hidden: Record<string, string>;
+  submitLabel: string;
+  /** What the visitor agrees to, e.g. "Email me this report." */
+  consentLabel: string;
+  /** What arrives, e.g. "the full report". */
+  sentLabel: string;
+}) {
+  const [state, formAction, pending] = useActionState(action, initialState);
   const id = useId();
 
   if (state.status === "sent") {
     return (
       <output className="block text-[17px]/[1.6]">
-        Sent. Check your inbox for the full report
+        Sent. Check your inbox for {sentLabel}
         {state.newsletter
           ? ", plus a separate link to confirm the newsletter."
           : "."}
@@ -34,7 +49,9 @@ export function EmailReportForm({ code }: { code: string }) {
 
   return (
     <form action={formAction} noValidate>
-      <input type="hidden" name="code" value={code} />
+      {Object.entries(hidden).map(([name, value]) => (
+        <input key={name} type="hidden" name={name} value={value} />
+      ))}
       <div aria-hidden="true" className="absolute -left-[9999px]">
         <label htmlFor={`${id}-hp`}>Leave this empty</label>
         <input
@@ -65,7 +82,7 @@ export function EmailReportForm({ code }: { code: string }) {
           disabled={pending}
           className="min-h-11 cursor-pointer bg-ink px-5 py-2.5 text-[15px] font-semibold text-paper transition-colors hover:bg-rust disabled:cursor-wait disabled:opacity-70"
         >
-          {pending ? "Sending…" : "Email my report"}
+          {pending ? "Sending…" : submitLabel}
         </button>
       </div>
       <div className="mt-4 flex flex-col gap-3 text-[15px]/[1.5] text-graphite">
@@ -78,7 +95,7 @@ export function EmailReportForm({ code }: { code: string }) {
             className="mt-1 size-4 shrink-0 accent-ink"
           />
           <span>
-            Email me this report. {site.name} uses my address only to send it.
+            {consentLabel} {site.name} uses my address only to send it.
           </span>
         </label>
         <label className="flex gap-3">
@@ -101,7 +118,7 @@ export function EmailReportForm({ code }: { code: string }) {
         {badEmail ? (
           "Enter an email address like name@company.co.za."
         ) : noConsent ? (
-          "Tick the first box so I can send the report."
+          "Tick the first box so I can send it."
         ) : state.status === "failed" ? (
           `That didn't go through. Try again, or email ${site.email}.`
         ) : (

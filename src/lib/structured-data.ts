@@ -397,3 +397,81 @@ export function pricingPageStructuredData(
     ],
   };
 }
+
+type ResourceInput = {
+  path: `/${string}`;
+  name: string;
+  description: string;
+  trail: Crumb[];
+  updated: string;
+  downloadPath: string;
+};
+
+/** The POPIA + AI checklist: page, breadcrumb and a HowTo of every check. */
+export function checklistStructuredData(
+  page: ResourceInput,
+  steps: { heading: string; checks: string[] }[],
+) {
+  const url = absoluteUrl(page.path);
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      ...pageNodes({ ...page, type: "WebPage" }),
+      {
+        "@type": "HowTo",
+        "@id": `${url}#howto`,
+        name: page.name,
+        description: page.description,
+        url,
+        inLanguage: site.locale,
+        dateModified: page.updated,
+        author: { "@id": ids.founder },
+        publisher: { "@id": ids.org },
+        isAccessibleForFree: true,
+        step: steps.map((section) => ({
+          "@type": "HowToSection",
+          name: section.heading,
+          itemListElement: section.checks.map((check) => ({
+            "@type": "HowToStep",
+            text: check,
+          })),
+        })),
+        mainEntityOfPage: { "@id": `${url}#webpage` },
+      },
+    ],
+  };
+}
+
+/** The AI usage policy template: page, breadcrumb and the downloadable document. */
+export function templateStructuredData(page: ResourceInput) {
+  const url = absoluteUrl(page.path);
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      ...pageNodes({ ...page, type: "WebPage" }),
+      {
+        "@type": "DigitalDocument",
+        "@id": `${url}#document`,
+        name: page.name,
+        description: page.description,
+        url,
+        inLanguage: site.locale,
+        dateModified: page.updated,
+        author: { "@id": ids.founder },
+        publisher: { "@id": ids.org },
+        isAccessibleForFree: true,
+        license: absoluteUrl("/terms"),
+        encoding: {
+          "@type": "MediaObject",
+          contentUrl: absoluteUrl(page.downloadPath),
+          encodingFormat: "application/msword",
+        },
+        audience: {
+          "@type": "BusinessAudience",
+          name: "South African small and medium-sized businesses",
+        },
+        mainEntityOfPage: { "@id": `${url}#webpage` },
+      },
+    ],
+  };
+}

@@ -6,6 +6,7 @@ import {
   isCategoryIndexable,
   publishedArticles,
 } from "@/content/articles";
+import { resourceList } from "@/content/resources";
 import { serviceDetails, servicePath } from "@/content/services";
 import { survey } from "@/content/survey";
 
@@ -47,6 +48,13 @@ export const pages: Page[] = [
     priority: 0.5,
   })),
   { path: "/scorecard", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/resources", changeFrequency: "monthly", priority: 0.7 },
+  ...resourceList.map((resource) => ({
+    path: resource.path,
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+    lastModified: resource.updated,
+  })),
   // Indexed once the Tally form is live (see src/content/survey.ts).
   ...(survey.tallyUrl
     ? [
@@ -72,6 +80,8 @@ export const knownPaths = new Set<string>([
   ...activeCategories.map(categoryPath),
   ...generatedRoutes,
   "/survey",
+  "/scorecard/result",
+  ...resourceList.map((resource) => `${resource.path}/download`),
   // Newsletter confirmation steps: real pages, but noindex and not in the sitemap.
   "/newsletter/confirmed",
   "/newsletter/link-expired",

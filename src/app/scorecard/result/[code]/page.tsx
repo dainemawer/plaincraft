@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { EmailReportForm } from "@/components/scorecard/email-report-form";
+import { emailReport } from "@/app/actions/scorecard";
+import { EmailCopyForm } from "@/components/forms/email-copy-form";
 import { ResultTracker } from "@/components/scorecard/step-tracker";
 import { BookCall } from "@/components/sections/book-call";
 import { Breadcrumb } from "@/components/site/breadcrumb";
@@ -170,7 +171,13 @@ export default async function ScorecardResultPage({
               the free POPIA checklist and AI policy template.
             </p>
           </div>
-          <EmailReportForm code={result.code} />
+          <EmailCopyForm
+            action={emailReport}
+            hidden={{ code: result.code }}
+            submitLabel="Email my report"
+            consentLabel="Email me this report."
+            sentLabel="the full report"
+          />
         </div>
       </section>
 
