@@ -33,7 +33,7 @@ export const site = {
    */
   profiles: {
     linkedInCompany: "",
-    googleBusiness: "",
+    googleBusiness: "https://share.google/L3qEjaVOBhTJIgX7M",
     clutch: "",
   },
   founder: {
