@@ -272,8 +272,8 @@ export function scoreResult(code: string): ScorecardResult | null {
     return { area, score: percent(total, indices.length) };
   });
 
-  const weakest = [...areaScores]
-    .sort((a, b) => a.score - b.score)
+  const weakest = areaScores
+    .toSorted((a, b) => a.score - b.score)
     .map((entry) => entry.area);
 
   const nextMoves = scorecardQuestions
