@@ -14,6 +14,7 @@ const freeLinks = [
     href: "/resources/ai-usage-policy-template",
   },
   { label: "Partner programme", href: "/partners" },
+  { label: "Press", href: "/press" },
 ];
 
 async function getCopyrightYear() {
