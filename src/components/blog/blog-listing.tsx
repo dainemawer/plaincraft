@@ -87,7 +87,7 @@ export function BlogListing({
                 src={featured.image.src}
                 alt=""
                 sizes="(min-width: 960px) 620px, 100vw"
-                preload
+                lcp
               />
             </div>
             <div className="flex flex-col justify-center gap-5 p-[clamp(28px,4vw,56px)]">

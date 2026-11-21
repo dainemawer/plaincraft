@@ -150,7 +150,7 @@ export default async function ArticlePage({
               src={header.src}
               alt={header.alt}
               sizes="(min-width: 1280px) 1184px, 100vw"
-              preload
+              lcp
             />
           </div>
           {caption ? (
