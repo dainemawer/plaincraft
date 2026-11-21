@@ -3,21 +3,31 @@
 import { useEffect, useState } from "react";
 import { ButtonLink } from "@/components/ui/button-link";
 import { events, track } from "@/lib/analytics";
-import { useMenu } from "./menu-context";
+import { MOBILE_MENU_ID } from "./site-menu";
 
 /** Distance scrolled before the bar appears, roughly past the hero. */
 const SHOW_AFTER_PX = 640;
 
 /** Mobile-only booking bar pinned to the bottom of the viewport. */
 export function StickyCta({ href }: { href: string }) {
-  const { open: menuOpen } = useMenu();
   const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const update = () => setScrolled(window.scrollY > SHOW_AFTER_PX);
     update();
     window.addEventListener("scroll", update, { passive: true });
     return () => window.removeEventListener("scroll", update);
+  }, []);
+
+  // Step aside while the mobile menu popover is open.
+  useEffect(() => {
+    const menu = document.getElementById(MOBILE_MENU_ID);
+    if (!menu) return;
+    const onToggle = (event: Event) =>
+      setMenuOpen((event as ToggleEvent).newState === "open");
+    menu.addEventListener("toggle", onToggle);
+    return () => menu.removeEventListener("toggle", onToggle);
   }, []);
 
   if (!scrolled || menuOpen) return null;
