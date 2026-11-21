@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  type PointerEvent,
   type ReactNode,
   useActionState,
   useEffect,
@@ -26,6 +27,7 @@ const inputClasses =
 export function ApplyDialog({ waitlist }: { waitlist: boolean }) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
+  const pressedOutside = useRef(false);
   const titleId = useId();
   const [state, formAction, pending] = useActionState(
     applyForFoundingSpot,
@@ -53,7 +55,15 @@ export function ApplyDialog({ waitlist }: { waitlist: boolean }) {
     <>
       <button
         type="button"
-        onClick={() => dialogRef.current?.showModal()}
+        onClick={() => {
+          const dialog = dialogRef.current;
+          if (!dialog) return;
+          dialog.showModal();
+          // Start on the first field rather than the close button.
+          dialog
+            .querySelector<HTMLElement>("form [name]:not([tabindex])")
+            ?.focus();
+        }}
         className={buttonClasses({
           variant: "dark",
           lift: true,
@@ -71,12 +81,22 @@ export function ApplyDialog({ waitlist }: { waitlist: boolean }) {
         </span>
       </button>
 
-      {/* biome-ignore lint/a11y/useKeyWithClickEvents: closes on backdrop clicks; Escape already closes it from the keyboard. */}
+      {/* closedby="any" closes on a backdrop click as well as Escape. Safari
+          lacks it, so the pointer handlers stand in there. */}
       <dialog
         ref={dialogRef}
         aria-labelledby={titleId}
-        onClick={(event) => {
-          if (event.target === event.currentTarget) event.currentTarget.close();
+        {...({ closedby: "any" } as object)}
+        onPointerDown={(event) => {
+          pressedOutside.current = isOutside(event);
+        }}
+        onPointerUp={(event) => {
+          if ("closedBy" in HTMLDialogElement.prototype) return;
+          // Press and release both outside, so a text-selection drag that
+          // ends on the backdrop doesn't throw away a half-filled form.
+          if (pressedOutside.current && isOutside(event)) {
+            event.currentTarget.close();
+          }
         }}
         className="m-auto max-h-[calc(100dvh-32px)] w-[min(600px,calc(100vw-32px))] overflow-y-auto border border-ink bg-paper p-0 text-ink backdrop:bg-ink/60 backdrop:backdrop-blur-sm"
       >
@@ -252,6 +272,17 @@ export function ApplyDialog({ waitlist }: { waitlist: boolean }) {
         </div>
       </dialog>
     </>
+  );
+}
+
+/** Whether a pointer event landed outside the dialog's box, i.e. on the backdrop. */
+function isOutside(event: PointerEvent<HTMLDialogElement>) {
+  const box = event.currentTarget.getBoundingClientRect();
+  return (
+    event.clientX < box.left ||
+    event.clientX > box.right ||
+    event.clientY < box.top ||
+    event.clientY > box.bottom
   );
 }
 

@@ -243,7 +243,18 @@ body:has(#market-uk:checked) [data-market="za"] {
   }
 }
 
-/* Keep the page still behind an open modal. */
-html:has(dialog[open]:modal) {
+/*
+ * Keep the page still behind an open modal without touching the root
+ * overflow (which drops the scrollbar and shifts the layout). The backdrop
+ * needs overflow: hidden to become a scroll container that honours
+ * overscroll-behavior. Progressive enhancement: where non-scrollable
+ * containment isn't supported, showModal() still makes the page inert.
+ */
+dialog:modal {
+  overscroll-behavior: contain;
+}
+
+dialog::backdrop {
   overflow: hidden;
+  overscroll-behavior: contain;
 }
