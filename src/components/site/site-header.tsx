@@ -4,11 +4,11 @@ import { Logo } from "@/components/ui/logo";
 import { primaryNav } from "@/content/home";
 import { events, track } from "@/lib/analytics";
 import { site } from "@/lib/site";
-import { MenuButton, MenuPanel } from "./menu-context";
+import { MobileMenu, NavLink } from "./site-menu";
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-50 border-b border-ink/10 bg-paper/97 print:hidden">
+    <header className="site-header sticky top-0 z-50 border-b border-ink/10 bg-paper/97 print:hidden">
       <nav
         aria-label="Primary"
         className="shell flex items-center justify-between gap-6 py-3.5"
@@ -24,9 +24,11 @@ export function SiteHeader() {
         <ul className="hidden items-center gap-[26px] text-[15px] font-medium whitespace-nowrap nav:flex">
           {primaryNav.map((item) => (
             <li key={item.href}>
-              <Link href={item.href} className="no-underline hover:text-rust">
-                {item.label}
-              </Link>
+              <NavLink
+                href={item.href}
+                label={item.label}
+                className="no-underline hover:text-rust"
+              />
             </li>
           ))}
         </ul>
@@ -39,10 +41,9 @@ export function SiteHeader() {
           >
             Book a call
           </ButtonLink>
-          <MenuButton />
+          <MobileMenu />
         </div>
       </nav>
-      <MenuPanel />
     </header>
   );
 }

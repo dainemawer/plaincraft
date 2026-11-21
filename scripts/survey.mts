@@ -176,7 +176,7 @@ function table(result: QuestionResult) {
   if (result.answered < survey.minGroupSize) {
     return `_Fewer than ${survey.minGroupSize} answers. Not reported._\n`;
   }
-  const sorted = [...result.counts].sort((a, b) => b.count - a.count);
+  const sorted = result.counts.toSorted((a, b) => b.count - a.count);
   return [
     "| Answer | Responses | Share |",
     "| --- | ---: | ---: |",
@@ -191,7 +191,7 @@ function table(result: QuestionResult) {
 }
 
 function headline(result: QuestionResult) {
-  const top = [...result.counts].sort((a, b) => b.count - a.count)[0];
+  const top = result.counts.toSorted((a, b) => b.count - a.count)[0];
   return top && result.answered >= survey.minGroupSize
     ? `${result.short}: ${percent(top.share)} chose "${top.option}".`
     : `${result.short}: not enough answers.`;

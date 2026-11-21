@@ -2,7 +2,8 @@ import Image, { type StaticImageData } from "next/image";
 
 type PhotoProps = {
   sizes: string;
-  preload?: boolean;
+  /** Mark the page's Largest Contentful Paint image: loads eagerly at high priority. */
+  lcp?: boolean;
   /** Placeholder contrast: "light" on sand backgrounds, "dark" on ink. */
   tone?: "light" | "dark";
 } & (
@@ -30,7 +31,7 @@ export function Photo({
   alt,
   hint,
   sizes,
-  preload = false,
+  lcp = false,
   tone = "light",
 }: PhotoProps) {
   if (src) {
@@ -40,7 +41,8 @@ export function Photo({
         alt={alt}
         fill
         sizes={sizes}
-        preload={preload}
+        fetchPriority={lcp ? "high" : undefined}
+        loading={lcp ? "eager" : undefined}
         placeholder={typeof src === "string" ? "empty" : "blur"}
         className="object-cover photo-tone"
       />

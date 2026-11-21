@@ -159,7 +159,7 @@ function ServiceHero({
                 src={detail.photo.src}
                 alt={detail.photo.alt}
                 sizes="(min-width: 1100px) 600px, 100vw"
-                preload
+                lcp
               />
             </div>
           </figure>
