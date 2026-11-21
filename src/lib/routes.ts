@@ -50,6 +50,7 @@ export const pages: Page[] = [
   { path: "/scorecard", changeFrequency: "monthly", priority: 0.8 },
   { path: "/resources", changeFrequency: "monthly", priority: 0.7 },
   { path: "/partners", changeFrequency: "monthly", priority: 0.6 },
+  { path: "/press", changeFrequency: "monthly", priority: 0.4 },
   ...resourceList.map((resource) => ({
     path: resource.path,
     changeFrequency: "monthly" as const,
