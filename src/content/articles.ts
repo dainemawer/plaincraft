@@ -387,6 +387,212 @@ export const articles: Article[] = [
     ],
     draft: false,
   },
+  // Drafts for YIELD-168. Images reuse existing photos until new ones are
+  // shot (YIELD-166); swap them before publishing.
+  {
+    slug: "ai-consultant-cost-south-africa",
+    title: "How much does an AI consultant cost in South Africa?",
+    description:
+      "How AI consultants charge, what drives the price, what my fixed-fee work costs and the costs that aren't on the invoice. For SA small businesses.",
+    excerpt:
+      "How consultants charge, what drives the price and the costs that aren't on the invoice.",
+    category: "Buying",
+    tags: ["Pricing", "Consultants"],
+    date: "2026-11-23",
+    readMinutes: 6,
+    image: {
+      src: vendorQuestions,
+      alt: "Two people shaking hands across a desk above a printed contract.",
+    },
+    faqs: [
+      {
+        question: "How much does an AI consultant cost in South Africa?",
+        answer:
+          "It depends on how they charge and what you need. Fixed-fee work for a small business usually starts in the tens of thousands of rand for a defined piece such as an audit or workshop. Plaincraft publishes its prices: an AI readiness audit starts at R45,000 and a half-day training workshop is R20,000.",
+      },
+      {
+        question: "Is a fixed fee better than an hourly rate?",
+        answer:
+          "For a first project, usually. With a fixed fee the consultant carries the risk of the work taking longer, and you know the cost before you start. It only works if the scope is written down clearly.",
+      },
+      {
+        question: "What else should I budget for besides the consultant?",
+        answer:
+          "Tool licences for the people whose work is changing, a few hours a week of your own team's time during the project, and someone to look after any automation once it's running.",
+      },
+    ],
+    draft: true,
+  },
+  {
+    slug: "copilot-vs-chatgpt-business",
+    title: "Microsoft 365 Copilot vs ChatGPT Business for a 30-person business",
+    description:
+      "Which AI assistant suits a 30-person South African business: where Copilot wins, where ChatGPT Business wins, what each costs and how to decide.",
+    excerpt:
+      "Where each one wins, what they cost and how to decide without buying 30 seats of either.",
+    category: "Buying",
+    tags: ["Copilot", "ChatGPT"],
+    date: "2026-11-25",
+    readMinutes: 6,
+    image: {
+      src: unusedLicences,
+      alt: "A team meeting around a long table with laptops open.",
+    },
+    faqs: [
+      {
+        question: "Is Copilot or ChatGPT better for a small business?",
+        answer:
+          "Copilot usually fits better if your team works mainly in Outlook, Word, Excel and Teams, because it works inside those apps with your business data. ChatGPT Business usually fits better as a general assistant for writing and analysis, or if you use Google Workspace.",
+      },
+      {
+        question: "Do we need to buy a licence for every employee?",
+        answer:
+          "No. Buy seats for the people whose daily work involves the tasks the tool helps with, trial them for a month, and add more based on the usage reports.",
+      },
+      {
+        question: "Do Copilot and ChatGPT Business train on our data?",
+        answer:
+          "Both business plans say they don't train on your business data by default. Check the current terms for the plan you're buying, because free and personal plans work differently.",
+      },
+    ],
+    draft: true,
+  },
+  {
+    slug: "information-regulator-ai",
+    title: "What the Information Regulator expects when you use AI",
+    description:
+      "South Africa has no AI law yet, but POPIA already covers how small businesses use AI. The eight things the Information Regulator expects, in plain English.",
+    excerpt:
+      "There's no AI law yet. POPIA already covers almost everything a small business does with AI.",
+    category: "Governance",
+    tags: ["POPIA", "Regulation"],
+    date: "2026-11-27",
+    readMinutes: 6,
+    image: {
+      src: popiaChecklist,
+      alt: "An office filing cabinet with a padlock resting on top.",
+    },
+    faqs: [
+      {
+        question: "Is AI regulated in South Africa?",
+        answer:
+          "There's no AI-specific law yet, but POPIA applies whenever an AI tool processes personal information, and the Information Regulator enforces it.",
+      },
+      {
+        question: "Can a small business use AI tools under POPIA?",
+        answer:
+          "Yes. POPIA sets conditions, not a ban. Use business plans with written agreements, keep special personal information out unless you've checked, tell people how their information is used and keep a person in charge of decisions that significantly affect individuals.",
+      },
+      {
+        question: "Can AI make decisions about customers or staff?",
+        answer:
+          "Section 71 of POPIA restricts decisions with legal or substantial effects on a person that are based solely on automated processing. AI can gather information and suggest, but a person should decide and be able to explain the decision.",
+      },
+    ],
+    draft: true,
+  },
+  {
+    slug: "ai-for-accounting-practices",
+    title: "AI for accounting practices: 5 jobs to automate first",
+    description:
+      "The five admin jobs AI handles well in a South African accounting or bookkeeping practice, how to pick the first one and what POPIA means for client data.",
+    excerpt:
+      "Capture, document chasing, client emails, month-end commentary and staff questions.",
+    category: "Automation",
+    tags: ["Accounting", "Getting started"],
+    date: "2026-11-30",
+    readMinutes: 6,
+    image: {
+      src: invoiceCapture,
+      alt: "A stack of supplier invoices beside a laptop and a calculator.",
+    },
+    faqs: [
+      {
+        question: "What should an accounting practice automate first?",
+        answer:
+          "The job that costs the most hours and has an obvious check. For bookkeeping-heavy practices that's usually capturing bills and receipts. For advisory practices it's often client emails or month-end commentary.",
+      },
+      {
+        question: "Can AI do tax or audit work?",
+        answer:
+          "It can help prepare, by summarising and drafting. Professional judgements, tax opinions and sign-offs stay with the accountant.",
+      },
+      {
+        question: "Do we need new software?",
+        answer:
+          "Usually not. Most of these jobs run on your existing ledger, capture tool and a business AI plan. The cost is mostly setup time.",
+      },
+    ],
+    draft: true,
+  },
+  {
+    slug: "what-a-fractional-head-of-ai-does",
+    title: "What a fractional Head of AI actually does",
+    description:
+      "What a fractional Head of AI does month to month, how it compares with a hire or a consultant, what to look for and when you don't need one.",
+    excerpt:
+      "Senior ownership of AI a few days a month, and when you don't need it.",
+    category: "Adoption",
+    tags: ["Leadership", "Fractional"],
+    date: "2026-12-02",
+    readMinutes: 6,
+    image: {
+      src: header,
+      alt: "A team working through a process diagram on a whiteboard while colleagues watch from a table of laptops.",
+    },
+    faqs: [
+      {
+        question: "What is a fractional Head of AI?",
+        answer:
+          "A senior person who owns a business's use of AI part-time, a few days a month: the roadmap, tool reviews, governance, adoption and reporting to leadership.",
+      },
+      {
+        question: "When does a business need one?",
+        answer:
+          "When it has started using AI, has more than one tool or project, and nobody internal has the time or seniority to own it. Before that, an audit or a single project is better value.",
+      },
+      {
+        question: "How much does a fractional Head of AI cost?",
+        answer:
+          "Plaincraft's fractional Head of AI is R32,000 a month for two days or R60,000 for four, with a three-month minimum and then month to month.",
+      },
+    ],
+    draft: true,
+  },
+  {
+    slug: "one-page-ai-plan-2027",
+    title: "Your AI plan for 2027, on one page",
+    description:
+      "Skip the strategy document. A one-page AI plan for 2027 with six parts: a goal, three tasks, rules, a budget, an owner and two review dates.",
+    excerpt:
+      "One goal, three tasks, the rules, a budget, an owner and two review dates.",
+    category: "Guides",
+    tags: ["Planning", "Getting started"],
+    date: "2026-12-04",
+    readMinutes: 6,
+    image: {
+      src: usagePolicy,
+      alt: "A single printed page on a desk beside a pen and a coffee cup.",
+    },
+    faqs: [
+      {
+        question: "Does a small business need an AI strategy?",
+        answer:
+          "Not a long document. A one-page plan with a goal, three tasks to try, rules for data, a budget, an owner and review dates is usually more useful for a business with 10 to 250 staff.",
+      },
+      {
+        question: "Which tasks should we try AI on first?",
+        answer:
+          "Repeated tasks that involve writing, reading documents or answering routine questions, with an obvious way for a person to check the result. Estimate how often each happens and how long it takes, and start with the biggest.",
+      },
+      {
+        question: "When should we review the plan?",
+        answer:
+          "At the end of March, to check the first task, and at the end of June, to decide what comes next.",
+      },
+    ],
+    draft: true,
+  },
 ];
 
 /** Drafts are visible in `next dev` so they can be previewed. */

@@ -179,6 +179,7 @@ export const footerServiceLinks = [
   { label: "AI training", href: "/services/ai-training" },
   { label: "Fractional Head of AI", href: "/services/fractional-head-of-ai" },
   { label: "All services", href: "/services" },
+  { label: "By industry", href: "/industries" },
   { label: "Pricing", href: "/pricing" },
 ] as const;
 
