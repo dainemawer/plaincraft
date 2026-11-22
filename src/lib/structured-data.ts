@@ -1,6 +1,7 @@
 import founderPhoto from "@/assets/images/daine-mawer.jpg";
 import { type Article, articlePath } from "@/content/articles";
 import { faqs, services } from "@/content/home";
+import { type Industry, industryPath } from "@/content/industries";
 import {
   activeMarkets,
   type Market,
@@ -277,6 +278,56 @@ export function servicePageStructuredData(
         "@id": `${url}#faq`,
         isPartOf: { "@id": `${url}#webpage` },
         mainEntity: detail.faqs.map((faq) => ({
+          "@type": "Question",
+          name: faq.question,
+          acceptedAnswer: { "@type": "Answer", text: faq.answer },
+        })),
+      },
+    ],
+  };
+}
+
+/**
+ * An industry playbook: page and breadcrumb, a Service aimed at that sector
+ * (offered through the recommended first service), and its FAQ.
+ */
+export function industryPageStructuredData(industry: Industry, trail: Crumb[]) {
+  const path = industryPath(industry);
+  const url = absoluteUrl(path);
+  const first = serviceDetailById.get(industry.start.serviceId);
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      ...pageNodes({
+        type: "WebPage",
+        path,
+        name: industry.title,
+        description: industry.description,
+        trail,
+      }),
+      {
+        "@type": "Service",
+        "@id": `${url}#service`,
+        name: `AI consulting for ${industry.name.toLowerCase()}`,
+        serviceType: "AI consulting",
+        description: industry.description,
+        url,
+        provider: { "@id": ids.org },
+        areaServed: southAfrica,
+        audience: { "@type": "BusinessAudience", name: industry.name },
+        offers: first
+          ? offers(
+              servicePriceById.get(first.id),
+              absoluteUrl(servicePath(first)),
+            )
+          : [],
+        mainEntityOfPage: { "@id": `${url}#webpage` },
+      },
+      {
+        "@type": "FAQPage",
+        "@id": `${url}#faq`,
+        isPartOf: { "@id": `${url}#webpage` },
+        mainEntity: industry.faqs.map((faq) => ({
           "@type": "Question",
           name: faq.question,
           acceptedAnswer: { "@type": "Answer", text: faq.answer },

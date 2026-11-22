@@ -6,6 +6,7 @@ import {
   isCategoryIndexable,
   publishedArticles,
 } from "@/content/articles";
+import { industries, industryPath } from "@/content/industries";
 import { resourceList } from "@/content/resources";
 import { serviceDetails, servicePath } from "@/content/services";
 import { survey } from "@/content/survey";
@@ -49,6 +50,12 @@ export const pages: Page[] = [
   })),
   { path: "/scorecard", changeFrequency: "monthly", priority: 0.8 },
   { path: "/resources", changeFrequency: "monthly", priority: 0.7 },
+  { path: "/industries", changeFrequency: "monthly", priority: 0.7 },
+  ...industries.map((industry) => ({
+    path: industryPath(industry),
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  })),
   { path: "/partners", changeFrequency: "monthly", priority: 0.6 },
   { path: "/press", changeFrequency: "monthly", priority: 0.4 },
   ...resourceList.map((resource) => ({

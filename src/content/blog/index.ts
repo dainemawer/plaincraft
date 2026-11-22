@@ -16,6 +16,16 @@ export const articleBodies: Record<string, Body> = {
   "where-ai-shouldnt-go": () => import("./where-ai-shouldnt-go.mdx"),
   "ai-usage-policy": () => import("./ai-usage-policy.mdx"),
   "invoice-capture": () => import("./invoice-capture.mdx"),
+  "ai-consultant-cost-south-africa": () =>
+    import("./ai-consultant-cost-south-africa.mdx"),
+  "copilot-vs-chatgpt-business": () =>
+    import("./copilot-vs-chatgpt-business.mdx"),
+  "information-regulator-ai": () => import("./information-regulator-ai.mdx"),
+  "ai-for-accounting-practices": () =>
+    import("./ai-for-accounting-practices.mdx"),
+  "what-a-fractional-head-of-ai-does": () =>
+    import("./what-a-fractional-head-of-ai-does.mdx"),
+  "one-page-ai-plan-2027": () => import("./one-page-ai-plan-2027.mdx"),
 };
 
 /** Raw MDX source. Read at build time, when every article is prerendered. */
